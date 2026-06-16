@@ -1,0 +1,42 @@
+During the internship, in a first phase, trainings were completed, on trame.
+
+In parallel, maintenance tasks were given to familiarize with the CI, projects,
+the teams, and apply the trainings.
+
+Then the trame-radial-menu was asked
+
+\subsection{Trame Radial Menu}
+
+\input{works/radial-menu}
+
+\subsection{Pull requests}
+The following pull requests were done:
+\begin{enumerate}
+{% for pr in get_prs() %}
+\item \href{ {{ pr["url"] }} }{ {{pr["fullName"]}}/{{ pr["prNb"] }}:
+{{pr["description"]}} \label{pr:{{ pr["fullName"] }}/{{ pr["prNb"] }}} }
+{% endfor %}
+\end{enumerate}
+
+\subsection{Repositories}
+The following repositories were created:
+\begin{enumerate}
+\item
+\href{https://github.com/Kitware/trame-radial-menu}{Kitware/trame-radial-menu}
+(\href{https://pypi.org/project/trame-radial-menu/}{also on
+PyPI})\label{repo:trame-radial-menu} 
+
+\item
+\href{https://github.com/UlysseDurand/github-retriever/}{UlysseDurand/github-retriever}
+(\href{https://ulyssedurand.github.io/github-retriever/table.md}{deploying a
+page})\label{repo:github-retriever}
+\end{enumerate}
+
+\subsection{Rapports et Etats de l'art}
+
+\begin{itemize}
+\item Trame resources report \cref{appendix:trame-resources-report}
+\item State of the art pie-menu UI \cref{appendix:sota-pie-menu}
+\item State of the art DICOM visualization on mobile/tablet \cref{appendix:sota-dicom-mobile}
+\end{itemize}
+

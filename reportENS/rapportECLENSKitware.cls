@@ -22,6 +22,7 @@
 \RequirePackage{tikz}
 \RequirePackage{listings}
 \RequirePackage{xcolor}
+\RequirePackage{pdfpages}
 
 \lstset{
   basicstyle=\ttfamily\footnotesize,
@@ -32,6 +33,35 @@
   commentstyle=\color{gray},
   stringstyle=\color{teal},
   showstringspaces=false
+}
+% --- Color definitions (One Dark palette) ---
+\definecolor{vue-bg}{HTML}{282C34}
+\definecolor{vue-gutter}{HTML}{3B4048}
+\definecolor{vue-gutterfg}{HTML}{636D83}
+\definecolor{vue-htmltag}{HTML}{E06C75}
+\definecolor{vue-component}{HTML}{61AFEF}
+\definecolor{vue-attr}{HTML}{D19A66}
+\definecolor{vue-string}{HTML}{98C379}
+\definecolor{vue-directive}{HTML}{C678DD}
+\definecolor{vue-number}{HTML}{D19A66}
+\definecolor{vue-comment}{HTML}{5C6370}
+\definecolor{vue-fg}{HTML}{ABB2BF}
+
+% --- Vue language definition ---
+\lstdefinelanguage{Vue}{
+  sensitive=true,
+  morecomment=[s]{<!--}{-->},
+  morestring=[b]",
+  morestring=[b]',
+  % HTML structural tags
+  morekeywords=[1]{template, script, style, setup},
+  % Vue built-in directives
+  morekeywords=[2]{v-for, v-if, v-else, v-show, v-model, v-bind, v-on,
+                   v-slot, v-pre, v-once, v-cloak},
+  % JS keywords
+  morekeywords=[3]{import, from, export, default, const, let, var,
+                   defineProps, defineEmits, defineExpose, ref, reactive,
+                   computed, watch, onMounted},
 }
 
 \usetikzlibrary{graphs, graphdrawing, positioning, arrows.meta, shapes.geometric, fit, calc}
@@ -61,9 +91,9 @@
     \vspace{0.5cm}
   }
   \rhead{ \nouppercase{\leftmark} }
-  \rfoot{\thepage}
-  \cfoot{ }
-  \lfoot{\ttitle}
+  \fancyfoot[L]{\ttitle \hfill \thepage}
+  \fancyfoot[C]{}
+  \fancyfoot[R]{}
 }
 \renewcommand{\footrulewidth}{0.4pt}
 

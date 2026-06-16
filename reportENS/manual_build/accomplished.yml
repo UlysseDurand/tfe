@@ -1,0 +1,72 @@
+PR:
+  - repo: trame
+    url: https://github.com/Kitware/trame/pull/867
+    description: "docs(tutorial): fix typos and improve clarity"
+  - repo: trame
+    url: https://github.com/Kitware/trame/pull/870
+    description: "docs(tutorial): upgrade python version from 3.9 to 3.12"
+  - repo: trame-vtk
+    url: https://github.com/Kitware/trame-vtk/pull/108
+    description: "pre-commit update and picture added"
+  - repo: trame-vtk
+    url: https://github.com/Kitware/trame-vtk/pull/119
+    description: "correct github action semantic release build"
+  - repo: trame
+    url: https://github.com/Kitware/trame/pull/876
+    description: "Fix examples"
+  - repo: trame
+    url: https://github.com/Kitware/trame/pull/879
+    description: "Fix doc build error after fix-examples"
+  - repo: trame
+    url: https://github.com/Kitware/trame/pull/882
+    description: "Fix paraview with docker example"
+  - repo: trame
+    url: https://github.com/Kitware/trame/pull/883
+    description: "Fix paraview with docker example (v2)"
+  - repo: trame-tutorial
+    url: https://github.com/Kitware/trame-tutorial/pull/7
+    description: "Upgrade from Vue2 to Vue3 and use TrameApp"
+  - repo: trame-tutorial
+    url: https://github.com/Kitware/trame-tutorial/pull/8
+    description: "Finish making all the examples use best practice"
+  - repo: trame-tutorial
+    url: https://github.com/Kitware/trame-tutorial/pull/9
+    description: "Finish making all the examples use best practices (v2)"
+  - repo: trame
+    url: https://github.com/Kitware/trame/pull/877
+    description: "Tutorial corrections, upgrade from Vue2 to Vue3 and use TrameApp"
+  - repo: trame-cookiecutter
+    url: https://github.com/Kitware/trame-cookiecutter/pull/26
+    description: "fix ruff errors"
+  - repo: trame-cookiecutter
+    url: https://github.com/Kitware/trame-cookiecutter/pull/27
+    description: "fix(pre-commit): fix component application creation error"
+  - repo: trame-cookiecutter
+    url: https://github.com/Kitware/trame-cookiecutter/pull/28
+    description: "Put project version in the served umd.js file url"
+  - repo: trame-cookiecutter
+    url: https://github.com/Kitware/trame-cookiecutter/pull/30
+    description: "ci(semantic-release): fix build command"
+  - repo: trame
+    url: https://github.com/Kitware/trame/pull/895
+    description: "Add trame-radial-menu widget to the doc"
+  - repo: trame
+    url: https://github.com/Kitware/trame/pull/897
+    description: "Add trame-radial-menu to the news"
+  - repo: trame-radial-menu
+    url: https://github.com/Kitware/trame-radial-menu/pull/1
+    description: "Make open at mouse pos optional and have trame slicer example"
+
+Issues:
+  - repo: trame-markdown
+    url: https://github.com/Kitware/trame-markdown/issues/3
+    description: "Some examples are broken"
+  - repo: trame-vtk
+    url: https://github.com/Kitware/trame-vtk/issues/107
+    description: "Bug with paraview >= 5.13 local rendering"
+  - repo: trame
+    url: https://github.com/Kitware/trame/issues/875
+    description: "Paraview with Docker doesn't work"
+  - repo: trame-cookiecutter
+    url: https://github.com/Kitware/trame-cookiecutter/issues/29
+    description: "trame-cookiecutter doesn't publish to PyPI"

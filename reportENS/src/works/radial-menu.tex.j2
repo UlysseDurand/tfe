@@ -1,0 +1,64 @@
+
+It more or less followed the steps of the software development cycle.
+
+\subsubsection{Analysis}
+
+The need was a "krita palette" for trame-slicer. Lucie, Thibault and Julien were
+the product owners.
+
+The krita palette has a big variety of features and shows as a radial buttons
+around the mouse click \cref{fig:krita-palette}. It has a side menu to the right
+for the brush options, and it makes it easy for the user to quickly switch
+between different drawing tools. Trame slicer's medical viewer can benefit from
+the same interface.
+
+\insertfigure
+    {assets/images/krita-palette}
+    {height=0.3\textheight}
+    {Krita palette \cite{krita}}
+    {fig:krita-palette}
+
+Trame slicer's medical viewer almost has the same tools and right now these
+tools are in a side menu as shown in \cref{fig:medical-viewer-ui}
+
+\insertfigure
+    {assets/images/medical-viewer-ui}
+    {height=0.3\textheight}
+    {Medical Viewer UI}
+    {fig:medical-viewer-ui}
+
+First step was to establish a state of the art \cref{appendix:sota-pie-menu}.
+
+It was about whether some solution already exists (and we want it), features,
+design, technologies used, licence.
+
+No item of the state of the art fitted the expectations, it was decided to
+develop our own radial menu, with design choices and technology choices inspired
+from the items of the state of the art.
+
+\subsubsection{Development}
+
+Then was the development of the radial menu in VueJS. A first POC
+\cref{fig:first-poc-radial-menu} was shown to the product owners, their feedback
+refined the design, the API and the features they wanted.
+
+\insertfigure
+    {assets/images/radial-menu-first-poc}
+    {height=0.3\textheight}
+    {Radial Menu first POC in VueJS}
+    {fig:first-poc-radial-menu}
+
+\lstinputlisting[language=vue, caption={Radial Menu First POC's
+API}]{assets/code/first-poc-radial-menu.vue}
+
+Making a trame widget out of the Vue components was quite fast.
+
+Then there was a code review phase, correcting the style, the comments, the
+functions used, with Lucie.
+
+Finally when everything was ready, the project was put on a Kitware owned
+repository and published to PyPI through a GitHub workflow \cite{github-actions}.
+
+Now when new features are asked, they are added to the issues, I make a PR which
+is also reviewed by Lucie and then merged, like
+\cref{pr:Kitware/trame-radial-menu/1}.
