@@ -1,12 +1,13 @@
 ```mermaid
 graph TD
     Paraview:::nocode --> VTK:::cpp 
-    Slicer[3D Slicer]:::cpp --> VTK
+    Slicer[3D Slicer]:::nocode --> VTK
     SlicerWrap[3D Slicer wrapping]:::python --> Slicer
-    VTKJs[VTK.js]:::js --> VTK
+    VTKJs[VTK.js]:::js
     Vue[VueJS]:::js
     trame[trame]:::python --> Vue
     trame-vtk[trame-vtk]:::python --> VTKJs
+    trame-vtk --> VTK
     trame-vtk --> trame
     trame-slicer:::python --> SlicerWrap
     trame-slicer --> trame

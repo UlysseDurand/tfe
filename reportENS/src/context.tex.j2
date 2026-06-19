@@ -32,14 +32,14 @@ also participates in maintaining 3D Slicer.
 The problems with VTK and 3D Slicer is that they have a steep learning curve,
 require C++ skills and can only be run on computers that can run the binaries.
 
-For interoperability, Web solutions also come into mind and, when today most
+For interoperability, Web solutions also come into mind and, while today most
 engineers and researchers know Python, they don't necessarily know web
 development or C++ well enough. A study conducted to understand researchers'
 habits \cite{researchers_habits} confirms that Python is used by 67\% of
 researchers (\cref{fig:researchers_habits_python}).
 
-\insertfigure {assets/images/researchers-python} {width=\textwidth} {from
-\cite{researchers_habits}} {fig:researchers_habits_python}
+\insertfigure {assets/images/researchers-python} {width=\textwidth} {(source:
+\cite{researchers_habits})} {fig:researchers_habits_python}
 
 Plus, researchers use open science a lot, with open-source software being more
 adopted than commercial solutions, as shown in
@@ -51,9 +51,9 @@ adopted than commercial solutions, as shown in
 Trame \cite{trame} is an open source Python framework that makes it possible to
 easily create custom applications with no skills in compilation, C++ or web
 development. It perfectly fits the expectations of researchers and engineers.
-Even if indeed VTK.js (VTK recreated in JS) makes it possible to have VTK in web
-it still needs knowledge in Javscript. And when and ParaView doesn't need C++
-skills, it doesn't make web apps that can be served on any device.
+Even if VTK.js (VTK recreated in JS) makes it possible to use VTK on the web, it
+still requires knowledge of JavaScript. And while ParaView doesn't need C++
+skills, it doesn't produce web apps that can be served on any device.
 
 Trame's UI is built from \citev{VueJS} components, Vue is a web UI framework
 built for making interactive pages with modular custom components. It has a
@@ -76,7 +76,7 @@ comes from its ecosystem. For scientific visualization, \refrepo{trame-vtk} is
 the widget that makes it possible to use VTK in trame, for medical
 visualization, and
 \definerepo{https://github.com/KitwareMedical/trame-slicer}{trame-slicer} is the
-trame widget that makes it possible to use 3D Slicer in trame.
+widget that makes it possible to use 3D Slicer in trame.
 
 In \refrepo{trame-vtk} and \refrepo{trame-slicer}, remote rendering can be used,
 the application is ran and rendered on the Python side and streamed to a HTML
@@ -90,12 +90,14 @@ Controlled Area) they depend on.
 \insertfigure{assets/images/trame-application}{height=0.3\textheight}{Example of
 trame application taken from the trame tutorial}{fig:trame-application}
 
-Kitware wants to create custom medical visualization apps so it developed
-trame-slicer, a trame widget which uses the 3D slicer \cite{Slicer} features in
-trame thanks to the 3D Slicer's Python wrapping. A full web app showcasing
-trame-slicer capabilities was created, the Medical Viewer, making it possible,
-just like in 3D Slicer, to navigate through different views of a volume (that
-can come from the \citev{DICOM} standard), create segmentations, annotations.
+Kitware wanted to create custom medical visualization apps, \citev{VolView} was
+already developed but it ran fully on the user's browser, to this end,
+trame-slicer was developed, it is a trame widget which uses the 3D Slicer
+\cite{Slicer} features in trame thanks to the 3D Slicer's Python wrapping. A
+full web app showcasing trame-slicer capabilities was created, the Medical
+Viewer, making it possible, just like in 3D Slicer, to navigate through
+different views of a volume (that can come from the \citev{DICOM} standard),
+create segmentations, annotations.
 
 \subsection{Features}
 
@@ -104,10 +106,10 @@ can come from the \citev{DICOM} standard), create segmentations, annotations.
 Trame can be summarized as a \citev{VueJS} Python wrapper. As Vue stores
 variables that can be accessed both in the \texttt{template} section (client)
 and in the \texttt{script} section (server) through references (\texttt{ref}),
-so does trame.  Variables can be accessed both in the Web part and in the Python
-part. These variables are synchronized between the server (Python) and the
-client (Web) through a \texttt{state} object that is synchronized with
-WebSocket. UI elements and their Javascript code can trigger Python functions or
+so does trame where state variables can be accessed in the Web part as well as
+in the Python part. These variables are synchronized between the server (Python)
+and the client (Web) through a \texttt{state} object that is synchronized with
+WebSocket. UI elements and their JavaScript code can trigger Python functions or
 change the shared and synchronized variables of the state object that both the
 server and the client share. This is illustrated in \cref{fig:trame-slide}.
 

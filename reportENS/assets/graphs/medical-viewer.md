@@ -1,0 +1,29 @@
+```mermaid
+graph TD
+    A[MedicalViewerUI]
+    VolumePropertyUI --> A
+    B[SegmentEditorUI] --> A
+    MarkupsButtonUI --> A
+
+    SegmentationEffectPaintUI --> B
+    SegmentationEffectEraseUI --> B
+    .... --> B
+    C[SegmentEditorToolbarUI] --> B
+
+    SegmentListMenuUI --> C
+    SegmentDisplayUI --> C
+
+    D[MedicalViewerLogic]
+    VolumePropertyLogic --> D
+    E[SegmentEditorLogic] --> D
+    MarkupsButtonLogic --> D
+
+    SegmentationEffectPaintLogic --> E
+    SegmentationEffectEraseLogic --> E
+    ... --> E
+    F[SegmentEditorToolbarLogic] --> E
+
+    SegmentListMenuLogic --> F
+    SegmentDisplayLogic --> F
+```
+

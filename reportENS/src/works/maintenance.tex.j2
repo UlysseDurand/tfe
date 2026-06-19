@@ -2,11 +2,12 @@ In all the trame maintenance work, the following repositories were changed
 
 \begin{itemize}
 
-\item \Definerepo{https://github.com/Kitware/trame}{trame} 
+\item \Definerepo{github.com/Kitware/trame}{trame} 
 
 \item\Definerepo{https://github.com/Kitware/trame-tutorial}{trame-tutorial}
 
-\item \Definerepo{https://github.com/Kitware/trame-cookiecutter}{trame-cookiecutter}
+\item
+\Definerepo{https://github.com/Kitware/trame-cookiecutter}{trame-cookiecutter}
 
 \item \Definerepo{https://github.com/Kitware/trame-vtk}{trame-vtk}
 
@@ -17,7 +18,7 @@ trame tutorial}
 
 Vue3 (and vuetify3 \cite{Vuetify}) is the new standard now that trame supports
 it. The trame API also changed and a new standard was introduced, some syntax
-change were needed and some were strongly recommended to follow best practice.
+changes were needed and some were strongly recommended to follow best practice.
 The trame tutorial was the first thing to update. It was needed to change all
 the examples in the
 \href{https://github.com/Kitware/trame-tutorial}{trame-tutorial} repository, and
@@ -31,19 +32,19 @@ Requests (PR) that make this change.
 
 \subsubsection{Make all examples work}
 
-Trame examples serve as a showcase for trame and how it adapts with many use
-cases and libraries, they also contain examples of usage of trame widgets. They
-can serve as a starting point, for example, if someone wants to use markdown
-with trame, they just have to copy the trame-markdown example.
+Trame examples serve as a showcase for trame and show how it adapts with many
+use cases and libraries, they also contain examples of usage of trame widgets.
+They can serve as a starting point, for example, if someone wants to use
+markdown with trame, they just have to copy the trame-markdown example.
 
 \cref{pr:Kitware/trame/876} makes all the examples work. Most of the problems
 came from changes in the APIs of imported modules as a proper requirements file
-with modules' versions isn't given. This is done on purpose because it's better
-to keep examples that use libraries' last versions and features of imported
-modules to show these libraries are compatible with trame.
+specifying module versions isn't provided, and this is intentional, since it's
+better to keep examples that use libraries' last versions and features of
+imported modules to show these libraries are compatible with trame.
 
 As trame isn't yet fully documented with complete tutorials, there are many
-features that one can only learn by watching example codes so the examples are
+features that one can only learn by watching example code so the examples are
 complementary to the tutorial. This is why these examples were updated to use
 the best practices just like in the precedent maintenance section.
 
@@ -56,6 +57,12 @@ closed for this fix
 
 \subsubsection{trame-cookiecutter \cref{repo:trame-cookiecutter} fixes}
 
+The cookiecutter was not being tested a lot and didn't work perfectly.
+\cref{pr:Kitware/trame-cookiecutter/26},
+\cref{pr:Kitware/trame-cookiecutter/27},
+\cref{pr:Kitware/trame-cookiecutter/28}, \cref{pr:Kitware/trame-cookiecutter/30}
+are the fixes.
+
 \subsubsection{trame-vtk \cref{repo:trame-vtk} update precommit hooks and make
 linter pass}
 
@@ -63,16 +70,27 @@ linter pass}
 match the one from trame-cookiecutter \cref{repo:trame-cookiecutter}.
 \citev{Ruff} is a Python linter, it can spot stylistic issues and bad practices
 in Python code. Having a standard for style and best practice is very important
-in collaboartive code development as it makes it a lot easier to understand and
+in collaborative code development as it makes it a lot easier to understand and
 review other's code. The lint rules in the new precommit are quite strict so
 many code practice and style needed to be fixed. These linter rules come from
 different linters and in this repository they can come from \citev{pylint} (rule
 code PLC), \citev{pycodestyle} (rule code E or W) or \citev{flake8} (rule code F
-or SIM).  Here are some examples of rules (F stands for Flake) "unused-import
-(F401): Checks for unused imports.  print (T201): Checks for print statements.
-multiple-with-statements (SIM117): Checks for the unnecessary nesting of
-multiple consecutive context managers.  import-outside-top-level (PLC0415):
-Checks for import statements outside of a module's top-level scope, such as
-within a function or class definition.". In some case these rules had to be
-ignored (like the PLC0415 if we want to import some module only in some
-condition) and this could be done with the "\# noqa: [error code]" comment.
+or SIM).  Here are some examples of rules 
+
+\begin{itemize}
+
+\item unused-import (F401): Checks for unused imports.
+
+\item print (T201): Checks for print statements.
+
+\item multiple-with-statements (SIM117): Checks for the unnecessary nesting of
+multiple consecutive context managers.
+
+\item import-outside-top-level (PLC0415): Checks for import statements outside
+of a module's top-level scope, such as within a function or class definition.
+
+\end{itemize}
+
+In some cases these rules had to be ignored (like the PLC0415 if we want to
+import some module only in some condition) and this could be done with the "\#
+noqa: [error code]" comment.

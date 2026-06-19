@@ -1,7 +1,7 @@
 TEXFILE = main
 OUTDIR = build
-CLSFILE = rapportECLENSKitware.cls
 SRCFOLDER = src
+CLSFILE = $(SRCFOLDER)/rapportECLENSKitware.cls
 SRCFILES = $(shell find $(SRCFOLDER) -type f)
 VENV_PYTHON = ../.venv
 
@@ -28,6 +28,7 @@ build_assets: generate-graphs
 
 $(OUTDIR)/$(TEXFILE).tex: $(SRCFILES)
 	@mkdir -p $(OUTDIR)
+	cp $(CLSFILE) $(OUTDIR)
 	$(VENV_PYTHON)/bin/python build_scripts/build_tex.py $(SRCFOLDER) $(OUTDIR)
 
 clean:
