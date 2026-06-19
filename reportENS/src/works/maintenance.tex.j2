@@ -1,0 +1,62 @@
+In all the trame maintenance work, the following repositories were changed
+
+\begin{itemize}
+
+\item \Definerepo{https://github.com/Kitware/trame}{trame} 
+
+\item\Definerepo{https://github.com/Kitware/trame-tutorial}{trame-tutorial}
+
+\item \Definerepo{https://github.com/Kitware/trame-cookiecutter}{trame-cookiecutter}
+
+\item \Definerepo{https://github.com/Kitware/trame-vtk}{trame-vtk}
+
+\end{itemize}
+
+\subsubsection{Migration from Vue2 to Vue3 and new trame best practices in the
+trame tutorial}
+
+Vue3 (and vuetify3 \cite{Vuetify}) is the new standard now that trame supports
+it. The trame API also changed and a new standard was introduced, some syntax
+change were needed and some were strongly recommended to follow best practice.
+The trame tutorial was the first thing to update. It was needed to change all
+the examples in the
+\href{https://github.com/Kitware/trame-tutorial}{trame-tutorial} repository, and
+the corresponding \citev{VitePress} documentation in the
+\href{https://github.com/Kitware/trame}{trame} repository.
+
+\cref{pr:Kitware/trame-tutorial/7}, \cref{pr:Kitware/trame-tutorial/8},
+\cref{pr:Kitware/trame-tutorial/9} and \cref{pr:Kitware/trame/877} are the Pull
+Requests (PR) that make this change.
+
+
+\subsubsection{Make all examples work}
+
+Trame examples serve as a showcase for trame and how it adapts with many use
+cases and libraries, they also contain examples of usage of trame widgets. They
+can serve as a starting point, for example, if someone wants to use markdown
+with trame, they just have to copy the trame-markdown example.
+
+\cref{pr:Kitware/trame/876} makes all the examples work. Most of the problems
+came from changes in the APIs of imported modules as a proper requirements file
+with modules' versions isn't given. This is done on purpose because it's better
+to keep examples that use libraries' last versions and features of imported
+modules to show these libraries are compatible with trame.
+
+As trame isn't yet fully documented with complete tutorials, there are many
+features that one can only learn by watching example codes so the examples are
+complementary to the tutorial. This is why these examples were updated to use
+the best practices just like in the precedent maintenance section.
+
+\cref{pr:Kitware/trame/879} is just a fix because \cref{pr:Kitware/trame/876}
+broke the documentation creation because of a typo and
+\cref{pr:Kitware/trame/882}, \cref{pr:Kitware/trame/883} fix one last example
+that used Docker and Paraview, an issue was created and then closed for this fix
+\href{https://github.com/Kitware/trame/issues/875}{trame/issues/875}
+
+\subsubsection{trame-cookiecutter \cref{repo:trame-cookiecutter} fixes}
+
+\subsubsection{trame-vtk \cref{repo:trame-vtk} update precommit hooks and to
+make linter pass}
+
+\cref{pr:Kitware/trame-vtk/108} updates trame-vtk precommit \cite{precommit} to
+match the one from trame-cookiecutter \cref{repo:trame-cookiecutter}. Many linter errors needed a fix, like ""

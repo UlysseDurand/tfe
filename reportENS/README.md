@@ -1,13 +1,6 @@
-# Manual steps before build (`manual_build`)
+# ENS Report
 
-- Give `prompt` to a LLM with Stage/Livrables/(PR+Issues) copied as Markdown,
-and paste the response to manual_build/accomplished.yml
+Deadline: 26/06
+Format: <20 pages in english
 
-```
-can you make a yml out of this
 
-I want like {PR: [{repo: ,url: , description: }, ...], issues: [{repo:, url:,
-description: }, ...]}
-
-[Paste the markdown]
-```

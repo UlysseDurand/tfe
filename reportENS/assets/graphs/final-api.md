@@ -1,0 +1,8 @@
+```mermaid
+graph LR
+    RadMenu
+    RadItem -. Must be under .-> RadWheel
+    RadWheel-. Must be under .-> RadMenu
+    RadWheel -. Can be under .-> RadWheel
+    A[Any Vuetify Component] -. Under .-> RadItem
+```

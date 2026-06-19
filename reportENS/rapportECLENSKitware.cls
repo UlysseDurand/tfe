@@ -17,12 +17,13 @@
 \RequirePackage{fancyhdr}
 \RequirePackage{url}
 \RequirePackage[hidelinks]{hyperref}
-\RequirePackage[includehead, left=2.5cm,right=3.5cm,top=2cm,bottom=3.5cm]{geometry}
+\RequirePackage[includehead, left=3.5cm,right=3.5cm,top=2cm,bottom=3.5cm]{geometry}
 \RequirePackage{cleveref}
 \RequirePackage{tikz}
 \RequirePackage{listings}
 \RequirePackage{xcolor}
 \RequirePackage{pdfpages}
+\RequirePackage{enumitem}
 
 \lstset{
   basicstyle=\ttfamily\footnotesize,
@@ -143,3 +144,41 @@
   \end{figure}
 }
 
+\newcounter{pr}
+\crefformat{pr}{(#2PR~#1#3)}
+\crefmultiformat{pr}{(#2PRS~#1#3)}{ and~(#2#1#3)}{, (#2#1#3)}{ and~(#2#1#3)}
+\Crefformat{pr}{(#2PR~#1#3)}
+\newcommand{\definepr}[2]{
+  \refstepcounter{pr}
+  \hypertarget{#2}{}
+  \label{pr:#2}
+  PR.\thepr\ \href{#1}{#2}
+}
+
+\newcounter{repo}
+\crefformat{repo}{(#2repo~#1#3)}
+\crefmultiformat{repo}{(#2repos~#1#3)}{ and~(#2#1#3)}{, (#2#1#3)}{ and~(#2#1#3)}
+\Crefformat{repo}{(#2Repo~#1#3)}
+\newcommand{\definerepo}[2]{
+  \refstepcounter{repo}
+  \hypertarget{#2}{}
+  \label{repo:#2}
+  repo.\therepo\ \href{#1}{#2}
+}
+\newcommand{\Definerepo}[2]{
+  \refstepcounter{repo}
+  \hypertarget{#2}{}
+  \label{repo:#2}
+  Repo.\therepo\ \href{#1}{#2}
+}
+
+\crefname{lstlisting}{Listing}{Listings}
+\Crefname{lstlisting}{Listing}{Listings}
+
+\newcommand{\refrepo}[1]{
+  #1\ \cref{repo:#1}
+}
+
+\newcommand{\citev}[1]{
+  #1\ \cite{#1}
+}

@@ -1,10 +1,13 @@
+The development of the \citev{trame-radial-menu} more or less
+followed the steps of the agile methodology \cite{agile}, with planning,
+analysis, design, implementation, testing, deployment, and start over.
 
-It more or less followed the steps of the software development cycle.
+There were 3 people from the team being the product owners, a developer and a
+code reviewer.
 
 \subsubsection{Analysis}
 
-The need was a "krita palette" for trame-slicer. Lucie, Thibault and Julien were
-the product owners.
+What was asked in a first place was a "krita palette" for trame-slicer.
 
 The krita palette has a big variety of features and shows as a radial buttons
 around the mouse click \cref{fig:krita-palette}. It has a side menu to the right
@@ -15,7 +18,7 @@ the same interface.
 \insertfigure
     {assets/images/krita-palette}
     {height=0.3\textheight}
-    {Krita palette \cite{krita}}
+    {Krita palette \cite{Krita}}
     {fig:krita-palette}
 
 Trame slicer's medical viewer almost has the same tools and right now these
@@ -29,8 +32,12 @@ tools are in a side menu as shown in \cref{fig:medical-viewer-ui}
 
 First step was to establish a state of the art \cref{appendix:sota-pie-menu}.
 
-It was about whether some solution already exists (and we want it), features,
-design, technologies used, licence.
+It was about whether some solution already exists, what are the features, design
+choices, technologies used, licence.
+
+Almost all the items of the start of the art had poor maintenance, some used a
+framework that was too big or incompatible with trame-slicer, and none had the
+Vue modularity and all the features that were needed.
 
 No item of the state of the art fitted the expectations, it was decided to
 develop our own radial menu, with design choices and technology choices inspired
@@ -38,27 +45,87 @@ from the items of the state of the art.
 
 \subsubsection{Development}
 
-Then was the development of the radial menu in VueJS. A first POC
-\cref{fig:first-poc-radial-menu} was shown to the product owners, their feedback
-refined the design, the API and the features they wanted.
+Then was the phase of development of the radial menu in VueJS. A first POC
+\cref{fig:first-poc-radial-menu} was shown to the product owners with its API
+\cref{lst:first-poc}, their feedback refined the design, the API and the
+features they wanted. 
+
+In this first POC the API \cref{lst:first-poc} made it possible to put multiple
+wheels, an outer RadWheel would be put as a child component of the inner
+RadWheel. The major problem was that the kind of RadItem we can put was very
+limited (only to text and checkboxes). The product owners want to be able to put
+any HTML element.
+
+\insertfigure
+    {assets/images/poc-api-1}
+    {width=\textwidth}
+    {Components of the first POC's API of the radial menu}
+    {fig:first-poc-classes}
+
+The reviews on the look were that the double wheel was not ideal for
+trame-slicer, an UX and UI closer to the krita palette, with a side menu for the
+tools options was requested. This lead to a more refined version.
 
 \insertfigure
     {assets/images/radial-menu-first-poc}
     {height=0.3\textheight}
-    {Radial Menu first POC in VueJS}
+    {radial menu first poc in vuejs}
     {fig:first-poc-radial-menu}
 
-\lstinputlisting[language=vue, caption={Radial Menu First POC's
-API}]{assets/code/first-poc-radial-menu.vue}
 
-Making a trame widget out of the Vue components was quite fast.
+\lstinputlisting[language=vue, caption={Radial Menu First POC's API},
+label={lst:first-poc}, float]{assets/code/first-poc-radial-menu.vue}
+
+Making a trame widget out of the VueJs components was quite fast as there
+already exists a cookiecutter \cite{Cookiecutter} for trame, with an option to
+make a trame widget from VueJS components.
 
 Then there was a code review phase, correcting the style, the comments, the
 functions used, with Lucie.
 
+\subsubsection{Current API}
+
+The current API is shown in a minimal example \cref{lst:minimal-api}, with its
+components shown in \cref{fig:final-api-components}, it rendered as
+\cref{fig:radial-menu-minimal}. Now any HTML element can go under a RadMenu
+component.
+
+\insertfigure
+    {assets/images/final-api-1}
+    {width=\textwidth}
+    {Components of the final API of the radial menu}
+    {fig:final-api-components}
+
+\insertfigure
+    {assets/images/radial-menu-minimal-example}
+    {height=0.1\textheight}
+    {Radial Menu minimal example rendered}
+    {fig:radial-menu-minimal}
+
+\lstinputlisting[language=python, caption={Radial Menu Minimal
+example},label={lst:minimal-api},
+float]{assets/code/trame-radial-menu-minimal.py}
+
+Before publishing the widget, a documentation and a proper example were
+necessary. To this end, a full example \cref{fig:radial-menu-full} showing all
+the functionalities with all the parameters being tweakable in the UI was built.
+
+\insertfigure
+    {assets/images/radial-menu-full-example}
+    {height=0.5\textheight}
+    {Radial Menu full example}
+    {fig:radial-menu-full}
+
+\subsubsection{Maintenance process}
+
 Finally when everything was ready, the project was put on a Kitware owned
-repository and published to PyPI through a GitHub workflow \cite{github-actions}.
+repository and published to PyPI through a GitHub workflow
+\cite{github-actions}.
 
 Now when new features are asked, they are added to the issues, I make a PR which
 is also reviewed by Lucie and then merged, like
 \cref{pr:Kitware/trame-radial-menu/1}.
+
+The project was published to PyPI so it is importable with pip install
+trame-radial-menu, it was added to the trame widget list and announced in the
+trame news with \cref{pr:Kitware/trame/895} and \cref{pr:Kitware/trame/897}.

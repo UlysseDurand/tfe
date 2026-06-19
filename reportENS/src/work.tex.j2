@@ -5,32 +5,40 @@ the teams, and apply the trainings.
 
 Then the trame-radial-menu was asked
 
+\subsection{Maintenance}
+
+\input{works/maintenance}
+
 \subsection{Trame Radial Menu}
 
 \input{works/radial-menu}
 
 \subsection{Pull requests}
+
 The following pull requests were done:
-\begin{enumerate}
+
+\begin{itemize}
 {% for pr in get_prs() %}
-\item \href{ {{ pr["url"] }} }{ {{pr["fullName"]}}/{{ pr["prNb"] }}:
-{{pr["description"]}} \label{pr:{{ pr["fullName"] }}/{{ pr["prNb"] }}} }
+\item \definepr{{ "{" + pr["url"] + "}" }}{{ "{" + pr["fullName"]}}/{{ pr["prNb"] + "}" }}: {{pr["description"]}}
 {% endfor %}
-\end{enumerate}
+\end{itemize}
 
 \subsection{Repositories}
+
 The following repositories were created:
-\begin{enumerate}
-\item
-\href{https://github.com/Kitware/trame-radial-menu}{Kitware/trame-radial-menu}
-(\href{https://pypi.org/project/trame-radial-menu/}{also on
-PyPI})\label{repo:trame-radial-menu} 
+
+\begin{itemize}
 
 \item
-\href{https://github.com/UlysseDurand/github-retriever/}{UlysseDurand/github-retriever}
+\Definerepo{https://github.com/Kitware/trame-radial-menu}{trame-radial-menu}
+(\href{https://pypi.org/project/trame-radial-menu/}{also on \citev{PyPI}})
+
+\item
+\Definerepo{https://github.com/UlysseDurand/github-retriever/}{github-retriever}
 (\href{https://ulyssedurand.github.io/github-retriever/table.md}{deploying a
-page})\label{repo:github-retriever}
-\end{enumerate}
+page})
+
+\end{itemize}
 
 \subsection{Rapports et Etats de l'art}
 
