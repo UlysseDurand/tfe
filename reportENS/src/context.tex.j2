@@ -1,7 +1,7 @@
 \label{sec:context}
 
 Many frameworks are presented in this section, a summary of their dependencies
-in shown in \cref{fig:frameworks}
+is shown in \cref{fig:frameworks}
 
 \insertfigure {assets/images/frameworks-1.png} {width=\textwidth} {Frameworks
 and modules dependencies, in purple: No code, in green: C++, in blue:
@@ -9,12 +9,12 @@ Javascript, in red: Python} {fig:frameworks}
 
 \subsection{Scientific and Medical visualization tools}
 
-Frameworks for scientific and medical visualization are needed. VTK (Visual
-Toolkit) \cite{VTK}, developed by Kitware, is a good base for developing such
-frameworks.
+Scientific and medical visualization applications have a huge variety of real
+world use cases. VTK (Visual Toolkit) \cite{VTK}, developed by Kitware, is a
+good visualization framework for developing such applications.
 
-For scientific visualization, ParaView \cite{Paraview} developed by Kitware is
-an open-source application built on top of VTK. It is widely used by researchers
+For scientific visualization, \citev{ParaView} developed by Kitware is an
+open-source application built on top of VTK. It is widely used by researchers
 and engineers to visualize and analyze large scientific datasets. It provides
 many tools for data processing and rendering and can scale to high-performance
 computing environments.
@@ -22,8 +22,8 @@ computing environments.
 For medical visualization, 3D Slicer \cite{Slicer} is an open-source platform
 dedicated to medical image visualization and analysis. It provides tools for
 image segmentation, 3D reconstruction, registration, and quantitative analysis.
-It is widely used in both medical research and clinical applications. A good
-amount of the contributions come from Kitware.
+It is widely used in both medical research and clinical applications. Kitware
+also participates in maintaining 3D Slicer.
 
 \subsection{trame}
 
@@ -51,23 +51,9 @@ adopted than commercial solutions, as shown in
 Trame \cite{trame} is an open source Python framework that makes it possible to
 easily create custom applications with no skills in compilation, C++ or web
 development. It perfectly fits the expectations of researchers and engineers.
-Even if indeed VTK.js (JS wrapper of VTK) makes it possible to have VTK in web
-it still needs knowledge in Javscript, and ParaView doesn't need C++ skills, it
-doesn't make web apps that can be served on any device.
-
-Trame works with widgets, each one leveraging either some UI with special Vue
-components or some features with the JS/Python interaction. Trame's strength
-comes from its ecosystem. For scientific visualization, \refrepo{trame-vtk} is
-the widget that makes it possible to use VTK in trame, for medical
-visualization,
-\definerepo{https://github.com/KitwareMedical/trame-slicer}{trame-slicer} is the
-trame widget that makes it possible to use 3D Slicer in trame.
-
-In \refrepo{trame-vtk} and \refrepo{trame-slicer}, remote rendering can be used,
-the application is ran on the Python side and streamed to a HTML image and click
-events are transfered to Python, this is the job of
-\definerepo{https://github.com/Kitware/trame-rca}{trame-rca} (Remote Controlled
-Area) they depend on.
+Even if indeed VTK.js (VTK recreated in JS) makes it possible to have VTK in web
+it still needs knowledge in Javscript. And when and ParaView doesn't need C++
+skills, it doesn't make web apps that can be served on any device.
 
 Trame's UI is built from \citev{VueJS} components, Vue is a web UI framework
 built for making interactive pages with modular custom components. It has a
@@ -77,7 +63,26 @@ as a trame widget. It can then be easily added to the trame app's interface.
 Vuetify \cite{Vuetify} makes a good toolbox of Vue components that cover the
 basic needs like checkboxes, sliders, tables, etc... And
 \definerepo{https://github.com/Kitware/trame-vuetify}{trame-vuetify} wraps them
-in trame to have a nice UI.
+in trame to have a nice UI. \Cref{fig:trame-easy-ui} shows how easy reactive
+applications can be made with trame.
+
+\insertfigure{assets/images/trame-easy-ui}{height=0.3\textheight}{Trame code
+snippet (source: \href{https://kitware.github.io/trame/guide/}{trame guide},
+upscaled with \citev{ChatGPT})}{fig:trame-easy-ui}
+
+Trame works with widgets, each one leveraging either some UI with special VueJS
+components or some features with the JS/Python interaction. Trame's strength
+comes from its ecosystem. For scientific visualization, \refrepo{trame-vtk} is
+the widget that makes it possible to use VTK in trame, for medical
+visualization, and
+\definerepo{https://github.com/KitwareMedical/trame-slicer}{trame-slicer} is the
+trame widget that makes it possible to use 3D Slicer in trame.
+
+In \refrepo{trame-vtk} and \refrepo{trame-slicer}, remote rendering can be used,
+the application is ran and rendered on the Python side and streamed to a HTML
+image with click events in the image being transfered to Python, this is the job
+of \definerepo{https://github.com/Kitware/trame-rca}{trame-rca} (Remote
+Controlled Area) they depend on.
 
 \cref{fig:trame-application} shows how avanced application can be thanks to
 \refrepo{trame-vtk} and \refrepo{trame-vuetify}.
@@ -85,6 +90,38 @@ in trame to have a nice UI.
 \insertfigure{assets/images/trame-application}{height=0.3\textheight}{Example of
 trame application taken from the trame tutorial}{fig:trame-application}
 
-Kitware wants to show medical visualization apps so it developed trame-slicer on
-top of trame, which uses the 3D slicer \cite{Slicer} features in trame thanks to
-the 3D Slicer's Python wrapping. Making a medical viewer.
+Kitware wants to create custom medical visualization apps so it developed
+trame-slicer, a trame widget which uses the 3D slicer \cite{Slicer} features in
+trame thanks to the 3D Slicer's Python wrapping. A full web app showcasing
+trame-slicer capabilities was created, the Medical Viewer, making it possible,
+just like in 3D Slicer, to navigate through different views of a volume (that
+can come from the \citev{DICOM} standard), create segmentations, annotations.
+
+\subsection{Features}
+
+\subsubsection{Client/server shared state}
+
+Trame can be summarized as a \citev{VueJS} Python wrapper. As Vue stores
+variables that can be accessed both in the \texttt{template} section (client)
+and in the \texttt{script} section (server) through references (\texttt{ref}),
+so does trame.  Variables can be accessed both in the Web part and in the Python
+part. These variables are synchronized between the server (Python) and the
+client (Web) through a \texttt{state} object that is synchronized with
+WebSocket. UI elements and their Javascript code can trigger Python functions or
+change the shared and synchronized variables of the state object that both the
+server and the client share. This is illustrated in \cref{fig:trame-slide}.
+
+\insertfigure{assets/images/trame-slide}{height=0.2\textheight}{trame Model -
+View - ViewModel principle (source:
+\href{https://kitware.github.io/trame/guide/}{trame guide})}{fig:trame-slide}
+
+\subsubsection{Typed states}
+
+\label{sec:typedstates}
+
+Binding a shared variable to a singleton state object (a class populated by one
+object only \cite{design_patterns}) can be confusing, the typed states make it
+possible to have a reference to a variable from the state object. Anywhere in
+the code one can create a typed state and a new variable name in the state
+object will be assigned, this is very useful for binding shared variables to UI
+objects, this will be discussed later.

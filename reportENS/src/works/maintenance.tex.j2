@@ -50,13 +50,29 @@ the best practices just like in the precedent maintenance section.
 \cref{pr:Kitware/trame/879} is just a fix because \cref{pr:Kitware/trame/876}
 broke the documentation creation because of a typo and
 \cref{pr:Kitware/trame/882}, \cref{pr:Kitware/trame/883} fix one last example
-that used Docker and Paraview, an issue was created and then closed for this fix
+that used \citev{Docker} and \citev{ParaView}, an issue was created and then
+closed for this fix
 \href{https://github.com/Kitware/trame/issues/875}{trame/issues/875}
 
 \subsubsection{trame-cookiecutter \cref{repo:trame-cookiecutter} fixes}
 
-\subsubsection{trame-vtk \cref{repo:trame-vtk} update precommit hooks and to
-make linter pass}
+\subsubsection{trame-vtk \cref{repo:trame-vtk} update precommit hooks and make
+linter pass}
 
 \cref{pr:Kitware/trame-vtk/108} updates trame-vtk precommit \cite{precommit} to
-match the one from trame-cookiecutter \cref{repo:trame-cookiecutter}. Many linter errors needed a fix, like ""
+match the one from trame-cookiecutter \cref{repo:trame-cookiecutter}.
+\citev{Ruff} is a Python linter, it can spot stylistic issues and bad practices
+in Python code. Having a standard for style and best practice is very important
+in collaboartive code development as it makes it a lot easier to understand and
+review other's code. The lint rules in the new precommit are quite strict so
+many code practice and style needed to be fixed. These linter rules come from
+different linters and in this repository they can come from \citev{pylint} (rule
+code PLC), \citev{pycodestyle} (rule code E or W) or \citev{flake8} (rule code F
+or SIM).  Here are some examples of rules (F stands for Flake) "unused-import
+(F401): Checks for unused imports.  print (T201): Checks for print statements.
+multiple-with-statements (SIM117): Checks for the unnecessary nesting of
+multiple consecutive context managers.  import-outside-top-level (PLC0415):
+Checks for import statements outside of a module's top-level scope, such as
+within a function or class definition.". In some case these rules had to be
+ignored (like the PLC0415 if we want to import some module only in some
+condition) and this could be done with the "\# noqa: [error code]" comment.

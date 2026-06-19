@@ -1,0 +1,30 @@
+\subsection{Pull requests}
+
+The following pull requests were done:
+
+\begin{itemize}
+{% for pr in get_prs() %}
+\item \definepr{{ "{" + pr["url"] + "}" }}{{ "{" + pr["fullName"]}}/{{ pr["prNb"] + "}" }}: {{pr["description"]}}
+{% endfor %}
+\end{itemize}
+
+\subsection{Repositories}
+
+The following repositories were created:
+
+\begin{itemize}
+
+\item
+\Definerepo{https://github.com/Kitware/trame-radial-menu}{trame-radial-menu}
+(\href{https://pypi.org/project/trame-radial-menu/}{also on \citev{PyPI}})
+
+\item
+\Definerepo{https://github.com/UlysseDurand/github-retriever/}{github-retriever}
+(\href{https://ulyssedurand.github.io/github-retriever/table.md}{deploying a
+page})
+
+\item
+\Definerepo{https://github.com/UlysseDurand/trame-slicer/tree/radial-menu}{trame-slicer/radial-menu}
+fork of \refrepo{trame-slicer} for Radial Menu integration.
+
+\end{itemize}
