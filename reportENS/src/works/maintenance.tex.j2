@@ -1,10 +1,10 @@
-In all the trame maintenance work, the following repositories were changed
+In all the trame maintenance work, the following repositories were modified:
 
 \begin{itemize}
 
-\item \Definerepo{github.com/Kitware/trame}{trame} 
+\item \Definerepo{https://github.com/Kitware/trame}{trame}
 
-\item\Definerepo{https://github.com/Kitware/trame-tutorial}{trame-tutorial}
+\item \Definerepo{https://github.com/Kitware/trame-tutorial}{trame-tutorial}
 
 \item
 \Definerepo{https://github.com/Kitware/trame-cookiecutter}{trame-cookiecutter}
@@ -13,69 +13,81 @@ In all the trame maintenance work, the following repositories were changed
 
 \end{itemize}
 
-\subsubsection{Migration from Vue2 to Vue3 and new trame best practices in the
-trame tutorial}
+\subsubsection{Migration from Vue2 to Vue3 and adoption of new trame best
+practices in the tutorial}
 
-Vue3 (and vuetify3 \cite{Vuetify}) is the new standard now that trame supports
-it. The trame API also changed and a new standard was introduced, some syntax
-changes were needed and some were strongly recommended to follow best practice.
-The trame tutorial was the first thing to update. It was needed to change all
-the examples in the
-\href{https://github.com/Kitware/trame-tutorial}{trame-tutorial} repository, and
-the corresponding \citev{VitePress} documentation in the
+Vue3 (and Vuetify3 \cite{Vuetify}) is now the standard frontend framework
+supported by trame. The trame API has also evolved, introducing a new
+recommended development style. As a result, some syntax changes were required,
+while others were strongly encouraged to align with current best practices.
+
+The trame tutorial was the first component to be updated. This required
+modifying all examples in the
+\href{https://github.com/Kitware/trame-tutorial}{trame-tutorial} repository, as
+well as the corresponding \citev{VitePress} documentation in the
 \href{https://github.com/Kitware/trame}{trame} repository.
 
 \cref{pr:Kitware/trame-tutorial/7}, \cref{pr:Kitware/trame-tutorial/8},
-\cref{pr:Kitware/trame-tutorial/9} and \cref{pr:Kitware/trame/877} are the Pull
-Requests (PR) that make this change.
+\cref{pr:Kitware/trame-tutorial/9}, and \cref{pr:Kitware/trame/877} contain the
+pull requests (PRs) implementing these changes.
 
+\subsubsection{Making all examples functional}
 
-\subsubsection{Make all examples work}
+The trame examples showcase the flexibility of trame across a wide range of use
+cases and libraries. They also demonstrate the usage of many trame widgets and
+often serve as practical starting points for users. For instance, a developer
+wishing to integrate Markdown into a trame application can use the
+trame-markdown example as a template.
 
-Trame examples serve as a showcase for trame and show how it adapts with many
-use cases and libraries, they also contain examples of usage of trame widgets.
-They can serve as a starting point, for example, if someone wants to use
-markdown with trame, they just have to copy the trame-markdown example.
+\cref{pr:Kitware/trame/876} restores functionality across all examples. Most
+issues originated from API changes in third-party dependencies. A requirements
+file with pinned versions is intentionally not provided, as the goal is for
+examples to remain compatible with the latest versions and features of external
+libraries while demonstrating their interoperability with trame.
 
-\cref{pr:Kitware/trame/876} makes all the examples work. Most of the problems
-came from changes in the APIs of imported modules as a proper requirements file
-specifying module versions isn't provided, and this is intentional, since it's
-better to keep examples that use libraries' last versions and features of
-imported modules to show these libraries are compatible with trame.
+Because trame documentation is not yet fully comprehensive, many features can
+currently only be learned by studying example code. The examples therefore
+complement the tutorial and were updated to follow the same best practices
+introduced in the previous maintenance effort.
 
-As trame isn't yet fully documented with complete tutorials, there are many
-features that one can only learn by watching example code so the examples are
-complementary to the tutorial. This is why these examples were updated to use
-the best practices just like in the precedent maintenance section.
+\cref{pr:Kitware/trame/879} is a follow-up fix addressing a typo introduced by
+\cref{pr:Kitware/trame/876} that broke documentation generation. Additionally,
+\cref{pr:Kitware/trame/882} and \cref{pr:Kitware/trame/883} fix the last
+remaining example involving \citev{Docker} and \citev{ParaView}. An issue was
+opened and subsequently closed to track this work:
+\href{https://github.com/Kitware/trame/issues/875}{trame/issues/875}.
 
-\cref{pr:Kitware/trame/879} is just a fix because \cref{pr:Kitware/trame/876}
-broke the documentation creation because of a typo and
-\cref{pr:Kitware/trame/882}, \cref{pr:Kitware/trame/883} fix one last example
-that used \citev{Docker} and \citev{ParaView}, an issue was created and then
-closed for this fix
-\href{https://github.com/Kitware/trame/issues/875}{trame/issues/875}
+\subsubsection{Fixes to trame-cookiecutter \cref{repo:trame-cookiecutter}}
 
-\subsubsection{trame-cookiecutter \cref{repo:trame-cookiecutter} fixes}
+\citev{Cookiecutter} is a file structure template format and engine. With a
+cookiecutter template it is possible to quickly create a project file structure
+only from few parameters.
 
-The cookiecutter was not being tested a lot and didn't work perfectly.
+The trame cookiecutter template had received limited testing and did not
+function correctly in all situations. The fixes are implemented in
 \cref{pr:Kitware/trame-cookiecutter/26},
 \cref{pr:Kitware/trame-cookiecutter/27},
-\cref{pr:Kitware/trame-cookiecutter/28}, \cref{pr:Kitware/trame-cookiecutter/30}
-are the fixes.
+\cref{pr:Kitware/trame-cookiecutter/28}, and
+\cref{pr:Kitware/trame-cookiecutter/30}.
 
-\subsubsection{trame-vtk \cref{repo:trame-vtk} update precommit hooks and make
-linter pass}
+\subsubsection{Update pre-commit hooks and make the linter pass in trame-vtk
+\cref{repo:trame-vtk}}
 
-\cref{pr:Kitware/trame-vtk/108} updates trame-vtk precommit \cite{precommit} to
-match the one from trame-cookiecutter \cref{repo:trame-cookiecutter}.
-\citev{Ruff} is a Python linter, it can spot stylistic issues and bad practices
-in Python code. Having a standard for style and best practice is very important
-in collaborative code development as it makes it a lot easier to understand and
-review other's code. The lint rules in the new precommit are quite strict so
-many code practice and style needed to be fixed. These linter rules come from
-different linters and in this repository they can come from \citev{pylint} (rule
-code PLC), \citev{pycodestyle} (rule code E or W) or \citev{flake8} (rule code F
-or SIM).  Here are some examples of rules 
+\cref{pr:Kitware/trame-vtk/108} updates the trame-vtk pre-commit configuration
+\cite{precommit} to match the one used in trame-cookiecutter
+\cref{repo:trame-cookiecutter}.
+
+\citev{Ruff} is a Python linter that detects stylistic issues and common bad
+practices. Maintaining consistent style and coding standards is particularly
+important in collaborative software development because it makes code easier to
+understand, review, and maintain. The linting rules introduced by the new
+pre-commit configuration are relatively strict, requiring numerous style and
+code-quality fixes throughout the repository.
+
+These rules originate from several linting tools. In this repository, they may
+come from \citev{pylint} (rule codes beginning with PLC), \citev{pycodestyle}
+(rule codes beginning with E or W), or \citev{flake8} (rule codes beginning with
+F or SIM). Examples include:
 
 \begin{itemize}
 
@@ -83,14 +95,11 @@ or SIM).  Here are some examples of rules
 
 \item print (T201): Checks for print statements.
 
-\item multiple-with-statements (SIM117): Checks for the unnecessary nesting of
-multiple consecutive context managers.
+\item multiple-with-statements (SIM117): Checks for unnecessary nesting of
+consecutive context managers.
 
-\item import-outside-top-level (PLC0415): Checks for import statements outside
-of a module's top-level scope, such as within a function or class definition.
+\item import-outside-top-level (PLC0415): Checks for import statements located
+outside a module's top-level scope, such as inside functions or class
+definitions.
 
 \end{itemize}
-
-In some cases these rules had to be ignored (like the PLC0415 if we want to
-import some module only in some condition) and this could be done with the "\#
-noqa: [error code]" comment.

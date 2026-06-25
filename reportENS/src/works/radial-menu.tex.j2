@@ -1,215 +1,209 @@
-The development of the \citev{trame-radial-menu} more or less
-followed the steps of the agile methodology \cite{agile}, with planning,
-analysis, design, implementation, testing, deployment, and iteration.
+The development of the \citev{trame-radial-menu} broadly followed the stages of
+the Agile methodology \cite{agile}, including planning, analysis, design,
+implementation, testing, deployment, and iterative refinement.
 
-There were 3 people from the team being the product owners, a developer and a
-code reviewer.
+Three members of the team acted as product owners, one of whom also served as
+the code reviewer.
 
 \subsubsection{Analysis}
 
-What was asked for in the first place was a "krita palette" for trame-slicer.
+The initial requirement was to develop a "Krita palette" for trame-slicer.
 
-The krita palette has a big variety of features and shows as a radial buttons
-around the mouse click \cref{fig:krita-palette}. It has a side menu to the right
-for the brush options, and makes it easy for the user to quickly switch between
-different drawing tools. Trame slicer's medical viewer can benefit from the same
-interface.
+The Krita palette provides a rich set of features through a radial menu
+displayed around the mouse cursor upon activation (\cref{fig:krita-palette}). It
+includes a side panel containing brush options and enables users to switch
+quickly between drawing tools. A similar interface could significantly benefit
+trame-slicer's medical viewer.
 
-\insertfigure
-    {assets/images/krita-palette}
-    {height=0.3\textheight}
-    {Krita palette \cite{Krita}}
-    {fig:krita-palette}
+\insertfigure {assets/images/krita-palette} {height=0.3\textheight} {Krita
+palette \cite{Krita}} {fig:krita-palette}
 
-Trame slicer's medical viewer almost has the same tools and right now these
-tools are in a side menu as shown in \cref{fig:medical-viewer-ui}
+The medical viewer in trame-slicer already offers a comparable set of tools,
+although they are currently located within a side panel, as shown in
+\cref{fig:medical-viewer-ui}.
 
-\insertfigure
-    {assets/images/medical-viewer-ui}
-    {height=0.3\textheight}
-    {Medical Viewer UI}
-    {fig:medical-viewer-ui}
+\insertfigure {assets/images/medical-viewer-ui} {height=0.3\textheight} {Medical
+Viewer UI} {fig:medical-viewer-ui}
 
-The first step was to establish a state of the art review
-\cref{appendix:sota-pie-menu}. This involved checking whether existing solutions
-already addressed the need, and if so, identifying their features, design
-choices, technologies used, and licensing.
+The first step consisted of conducting a state-of-the-art review
+(\cref{appendix:sota-pie-menu}). This review aimed to determine whether existing
+solutions already addressed the identified needs and, if so, to evaluate their
+features, design choices, underlying technologies, and licensing models.
 
-Almost all the items of the state of the art had poor maintenance, some used a
-framework that was too big or incompatible with trame-slicer, and none had the
-Vue modularity and all the features that were needed.
+Most of the reviewed solutions suffered from poor maintenance. Several relied on
+frameworks that were either excessively large or incompatible with trame-slicer,
+and none provided both the Vue.js modularity and the complete feature set
+required for the project.
 
-No item of the state of the art fit the expectations, it was decided to develop
-our own radial menu, with design choices and technology choices inspired from
-the items of the state of the art.
+Since no existing solution fully satisfied the requirements, the decision was
+made to develop a custom radial menu inspired by the design and technical
+approaches observed in the reviewed systems.
 
 \subsubsection{Development}
 
-Then was the phase of development of the radial menu in VueJS. A first poof of
-concept \cref{fig:first-poc-radial-menu} was shown to the product owners with
-its API \cref{lst:first-poc}. Their feedback refined the design, the API and the
-features they wanted. 
+The next phase focused on implementing the radial menu in Vue.js. An initial
+proof of concept (\cref{fig:first-poc-radial-menu}), together with its API
+(\cref{lst:first-poc}), was presented to the product owners. Their feedback
+helped refine the design, API structure, and feature set.
 
-In this first POC the API \cref{lst:first-poc} made it possible to put multiple
-wheels, an outer RadWheel would be put as a child component of the inner
-RadWheel. The major problem was that the kind of RadItem we can put was very
-limited (only to text and checkboxes). The product owners wanted to be able to put
-any HTML element.
+In this first proof of concept, the API (\cref{lst:first-poc}) supported
+multiple wheels, with an outer \texttt{RadWheel} defined as a child component of
+an inner \texttt{RadWheel}. However, the available \texttt{RadItem} types were
+limited to text labels and checkboxes. The product owners requested the ability
+to embed arbitrary HTML content instead.
 
-\insertfigure
-    {assets/images/poc-api-1}
-    {width=\textwidth}
-    {Components of the first POC's API of the radial menu}
-    {fig:first-poc-classes}
+\insertfigure {assets/images/poc-api-1} {width=\textwidth} {Components of the
+first POC's API of the radial menu} {fig:first-poc-classes}
 
-Reviews of the look indicated that the double wheel was not ideal for
-trame-slicer. A UX and UI closer to the Krita palette, with a side menu for tool
-options, was requested instead. This lead to a more refined version.
+Feedback regarding the visual design also indicated that the double-wheel layout
+was not well suited to trame-slicer. Instead, a user experience and interface
+closer to the Krita palette, featuring a side panel for tool options, was
+preferred. This feedback led to a more refined design.
 
-\insertfigure
-    {assets/images/radial-menu-first-poc}
-    {height=0.2\textheight}
-    {Radial Menu first proof of concept in VueJS}
-    {fig:first-poc-radial-menu}
-
+\insertfigure {assets/images/radial-menu-first-poc} {height=0.2\textheight}
+{Radial Menu first proof of concept in VueJS} {fig:first-poc-radial-menu}
 
 \lstinputlisting[language=vue, caption={Radial Menu first proof of concept's
 API}, label={lst:first-poc}, float,
 basicstyle=\scriptsize]{assets/code/first-poc-radial-menu.vue}
 
-Making a trame widget out of the VueJS components was quite fast as there
-already exists a cookiecutter \cite{Cookiecutter} for trame, with an option to
-make a trame widget from VueJS components.
+Converting the Vue.js components into a trame widget was relatively
+straightforward, as a Cookiecutter \cite{Cookiecutter} template already exists
+for trame and includes support for generating widgets from Vue.js components.
 
-This was followed by a code review phase with the Code Reviewer, correcting the
-style, comments, and functions used.
+This was followed by a code review phase, during which the code reviewer
+suggested improvements to coding style, documentation, and implementation
+details.
 
 \subsubsection{Current API}
 
-The current API is shown in a minimal example \cref{lst:minimal-api}, with its
-components shown in \cref{fig:final-api-components}, it rendered as
-\cref{fig:radial-menu-minimal}. Now any HTML element can go under a RadMenu
+The current API is illustrated through the minimal example shown in
+\cref{lst:minimal-api}. Its component structure is presented in
+\cref{fig:final-api-components}, and the resulting interface is shown in
+\cref{fig:radial-menu-minimal}. Unlike the initial proof of concept, the current
+implementation allows any HTML element to be placed within a \texttt{RadMenu}
 component.
 
-\insertfigure
-    {assets/images/final-api-1}
-    {width=\textwidth}
-    {Components of the final API of the radial menu}
-    {fig:final-api-components}
+\insertfigure {assets/images/final-api-1} {width=\textwidth} {Components of the
+final API of the radial menu} {fig:final-api-components}
 
-\insertfigure
-    {assets/images/radial-menu-minimal-example}
-    {height=0.1\textheight}
-    {Radial Menu minimal example rendered}
-    {fig:radial-menu-minimal}
+\insertfigure {assets/images/radial-menu-minimal-example}
+{height=0.1\textheight} {Radial Menu minimal example rendered}
+{fig:radial-menu-minimal}
 
-\lstinputlisting[language=python, caption={Radial Menu Minimal
+\lstinputlisting[language=python, caption={Radial Menu minimal
 example},label={lst:minimal-api}, float,
 basicstyle=\scriptsize]{assets/code/trame-radial-menu-minimal.py}
 
-Before publishing the widget, a documentation and a proper example were
-necessary. To this end, a full example \cref{fig:radial-menu-full} showing all
-the functionalities with all the parameters being tweakable in the UI was built.
+Before publishing the widget, comprehensive documentation and a complete
+demonstration application were required. To achieve this, a full example
+(\cref{fig:radial-menu-full}) was developed, showcasing all available features
+while allowing every parameter to be adjusted directly through the user
+interface.
 
-\insertfigure
-    {assets/images/radial-menu-full-example}
-    {height=0.5\textheight}
-    {Radial Menu full example}
-    {fig:radial-menu-full}
+\insertfigure {assets/images/radial-menu-full-example} {height=0.4\textheight}
+{Radial Menu full example} {fig:radial-menu-full}
 
-\subsubsection{Maintenance process}
+\subsubsection{Maintenance Process}
 
-Finally when everything was ready, the project was put on a Kitware-owned
-repository and published to PyPI through a GitHub workflow
+Once development was complete, the project was moved to a Kitware-owned
+repository and published to PyPI through a GitHub Actions workflow
 \cite{github-actions}.
 
-Now when new features are asked, they are added as issues, and a PR is submitted
-which is also reviewed by the Code Reviewer and then merged, like
-\cref{pr:Kitware/trame-radial-menu/1}.
+New feature requests are now tracked through issues. Proposed changes are
+implemented through pull requests, which are reviewed by the code reviewer
+before being merged, as illustrated by \cref{pr:Kitware/trame-radial-menu/1}.
 
-The project was published to PyPI so it is importable with pip install
-trame-radial-menu, it was added to the trame widget list and announced in the
-trame news with \cref{pr:Kitware/trame/895} and \cref{pr:Kitware/trame/897}.
+The project was published on PyPI, making it installable via \texttt{pip install
+trame-radial-menu}. It was also added to the trame widget catalog and announced
+in the trame news through \cref{pr:Kitware/trame/895} and
+\cref{pr:Kitware/trame/897}.
 
-\subsubsection{\refrepo{trame-slicer} medical viewer example}
+\subsubsection{\refrepo{trame-slicer} Medical Viewer Example}
 
-As the use cases imagined for the radial menu were softwares like trame-slicer's
-medical viewer, an integration of the \citev{trame-radial-menu} into this app
-was expected.
+Since one of the primary target applications for the radial menu was software
+such as trame-slicer's medical viewer, integration into this application was
+considered an important use case.
 
-The Medical Viewer provides a good example of a complex app with complex UI and
-logic. This is what this section is about.
+The Medical Viewer provides an excellent example of a complex application
+featuring both sophisticated user interfaces and substantial application logic.
+This section describes its architecture and the integration process.
 
-\Cref{fig:medical-viewer-classes} shows us a simplified view of the classes
-used. These classes are singleton (see \cite{design_patterns}) which means
-that only one object is of each class. An arrow between SegmentEditorUI and
-MedicalViewerUI means that the MedicalViewerUI instantiates and knows the
-SegmentEditorUI. 
+\Cref{fig:medical-viewer-classes} presents a simplified view of the classes
+involved. These classes follow the Singleton design pattern (see
+\cite{design_patterns}), meaning that only one instance of each class exists. An
+arrow between \texttt{SegmentEditorUI} and \texttt{MedicalViewerUI} indicates
+that \texttt{MedicalViewerUI} instantiates and maintains a reference to
+\texttt{SegmentEditorUI}.
 
 \insertfigure{assets/images/medical-viewer-1}{width=\textwidth}{Simplified
 Medical Viewer's class diagram. These classes are singletons and arrows aren't
 inheritance but mean "is known by"}{fig:medical-viewer-classes}
 
-The UI part and the Logic part have two separate responsabilities, the UI
-classes handle the interface with the user (through trame UI elements) and
-stores the states of the UI (through typed states \cref{sec:typedstates}).  The
-Logic part is connected to the UI parts' triggers (functions that the user can
-trigger through the UI) and handles the interface with Slicer. If a user clicks
-a button to change tool, the \texttt{SegmentEditorUI.set\_active\_tool("Brush")}
-is called, which calls a corresponding procedure in the SegmentEditorLogic which
-will tell the Slicer instance to change tool.
+The architecture separates user interface responsibilities from application
+logic. UI classes manage interactions with the user through trame components and
+store interface state using typed states (\cref{sec:typedstates}). Logic classes
+respond to UI triggers and handle communication with Slicer.
 
-In that manner, the whole UI is built like a tree just like HTML. These nodes
-correspond to UI parts and have their own typed state (to know which
-segmentation tool is selected for example). The exact same structure as the UI
-is used for the logic part. Every logic object has a \texttt{set\_ui} property
-that expects the corresponding UI as a parameter. It registers the UI, connects
-their functions (through Signals in the
+For example, when a user selects a segmentation tool,
+\texttt{SegmentEditorUI.set\_active\_tool("Brush")} is invoked. This call
+triggers the corresponding procedure within \texttt{SegmentEditorLogic}, which
+instructs the Slicer instance to activate the requested tool.
+
+The UI is therefore organized as a hierarchical tree, similar to the structure
+of an HTML document. Each node corresponds to a UI component and maintains its
+own typed state, such as the currently selected segmentation tool. The logic
+layer mirrors this same structure. Every logic object exposes a \texttt{set\_ui}
+property that receives the corresponding UI object. This registration process
+connects UI triggers to their associated logic methods using Signals from the
 \definerepo{https://github.com/KitwareMedical/py-undo-stack}{py-undo-stack}
-repo) so that UI classes' triggers trigger the right functions in the Logic
-class.
+repository.
 
-\subsubsection{Radial Menu in the Medical Viewer example}
+\subsubsection{Radial Menu Integration in the Medical Viewer}
 
-Trame-slicer was forked in a personal branch to integrate the Radial Menu in the
-Medical Viewer, see \cref{repo:trame-slicer/radial-menu}.
+A personal fork of trame-slicer was created to integrate the radial menu into
+the Medical Viewer \cref{repo:trame-slicer/radial-menu}.
 
-Integrating the Radial Menu in the UI, adding buttons as RadItems and setting
-the side menu was quite straightforward. But the right menu opened on each right
-click which this wasn't a desired behaviour when the right click was bound to
-other tasks like zooming or stop adding markups (annotations). Fixing this
-required catching the right-click event not from the JavaScript but from the
-Slicer instance itself. This required diving into the architecture of Slicer
-itself, the part of the architecture which handles the right click is shown in
-two different cases: when the user right clicks in the void of the scene
-\cref{fig:slicer-architecture-void}, and when the user right clicks on a
-specific node \cref{fig:slicer-architecture-node}.
+Integrating the radial menu into the user interface, adding buttons as
+\texttt{RadItem}s, and configuring the side panel proved relatively
+straightforward. However, the menu initially appeared on every right-click,
+which was undesirable because right-click interactions were already assigned to
+other operations, such as zooming or terminating markup placement.
+
+Resolving this issue required intercepting right-click events within Slicer
+itself rather than at the JavaScript level. This necessitated a deeper
+investigation of Slicer's architecture. The relevant event propagation paths are
+illustrated in two scenarios: when a user right-clicks on empty space within a
+scene (\cref{fig:slicer-architecture-void}) and when a user right-clicks on a
+specific node (\cref{fig:slicer-architecture-node}).
 
 \insertfigure{assets/images/slicer-architecture-1}{width=\textwidth}{Propagation
 of a right click in the void of a view in 3D Slicer through 3D Slicer's
 architecture}{fig:slicer-architecture-void}
 
-In the first case the right click must be intercepted at the level of the
-\texttt{vtkMRMLApplicationLogic} , before reaching it, there could still be some
-processing to decide whether the click is valid or not, and after that we dive
-into handling the \citev{Qt} elements' interaction. In the second case the
-events must be caught at the \texttt{vtkMRMLDisplayNode}.
+In the first scenario, the event must be intercepted at the level of
+\texttt{vtkMRMLApplicationLogic}. Prior to reaching this layer, additional
+processing may determine whether the interaction is valid. Beyond this point,
+event handling transitions into the Qt interaction layer. In the second
+scenario, events must instead be intercepted at the \texttt{vtkMRMLDisplayNode}
+level.
 
 \insertfigure{assets/images/slicer-architecture-2}{width=\textwidth}{Propagation
 of a right click on a node of a view in 3D Slicer through 3D Slicer's
 architecture}{fig:slicer-architecture-node}
 
-In the first case the right click now makes the tool radial menu open, and in
-the second case the logic stores the Slicer markup node and opens a context menu
-(which is another radial menu with nothing except a side menu open) to have
-actions depending on the markup node type. For example for Fiducial nodes
-(annotation points in the scene), the delete, select and unselect options are
-shown.
+As a result, right-clicking in empty space now opens the radial tool menu. When
+right-clicking on a node, the logic stores the selected Slicer markup node and
+opens a context menu implemented as a specialized radial menu containing only a
+side panel. The available actions depend on the type of markup node. For
+example, fiducial nodes (annotation points within the scene) provide options
+such as delete, select, and unselect.
 
-In the end \cref{fig:medical-viewer-w-radial-menu} shows the radial menu
-integrated to trame-slicer, making it possible to easily select different markup
-nodes or segmentation tools, change tools' parameters or interact with markup
-nodes on the views.
+The final result is shown in \cref{fig:medical-viewer-w-radial-menu}, where the
+radial menu is fully integrated into trame-slicer's Medical Viewer. The
+integration enables efficient selection of markup nodes and segmentation tools,
+adjustment of tool parameters, and interaction with scene elements directly from
+the viewer.
 
 \insertfigure{assets/images/trame-slicer-w-radial-menu}{height=0.3\textheight}{Radial
 Menu integration into trame-slicer's Medical
