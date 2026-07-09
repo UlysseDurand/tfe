@@ -1,0 +1,4 @@
+yaml
+dotenv
+icalendar-events-cli
+jinja2

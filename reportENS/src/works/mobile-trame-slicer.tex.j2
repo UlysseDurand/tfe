@@ -1,24 +1,35 @@
-The current trame slicer's medical viewer app isn't adapted to mobile users as
-it requires uploading DICOM files, and there are too many tools, which are hard
-to use on a phone and don't fit typical phone usage taht is viewing and
-commenting rather than performing segmentation.
+The current trame-slicer Medical Viewer application is not well adapted to
+mobile users. It requires users to upload DICOM files, and it provides a large
+number of tools that are difficult to use on a phone and do not align with
+typical mobile workflows, which focus on viewing and commenting rather than
+performing segmentation.
 
-To serve as a commercial demo of medical software capabilities and develop trame
-tools related to phones on the way, a proof of concept of a trame-slicer mobile
-web app needed to be developed. To this end a member of the team served as a
-product owner and described the needs of a user persona (the typical user who
-would need this app) as well as the first features of the proof of concept.
+To showcase the capabilities of medical software in a commercial demonstration
+while also driving the development of phone-oriented trame tools, a proof of
+concept for a trame-slicer mobile web application was developed. A member of the
+team acted as product owner and defined the needs of a target user persona,
+along with the initial features required for the proof of concept:
 
 \begin{itemize}
 
 \item Load and review patient volumes
 
-\item Place markups / annotations at specific slices
+\item Place markups and annotations on specific slices
 
-\item Write down reports on patient health / disease tracking
+\item Write reports related to patient health and disease tracking
 
 \end{itemize}
 
-Along the way a speech-to-text button could be devloped and thus an "Audio
-recorder" trame widget can be develop, more \refrepo{trame-rca} controls for
-phones can be added (for pinch, two-finger moves, etc.)
+During development, a speech-to-text feature could also be implemented, leading
+to the creation of an "Audio Recorder" trame widget. In addition, further
+\refrepo{trame-rca} mobile controls could be added, such as pinch gestures and
+two-finger navigation.
+
+\Cref{fig:mobile-ui} shows the current state of development of the mobile web
+application. The main concern is to not overcharge the screen, on the right
+screenshot, different single touch functions can be selected (change slice,
+zoom, pan, window level). On the left screenshot the UI is separated in diffrent
+menus (one for volume loading and one for annotations as of now).
+
+\insertfigure{assets/images/mobile-ui}{height=0.3\textheight}{Current state of
+development of the mobile web application, two screenshots}{fig:mobile-ui}

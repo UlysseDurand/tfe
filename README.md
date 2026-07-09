@@ -3,6 +3,11 @@
 I did this internship from April to August 2026 under the supervision of Julien Finet in the
 Software Development team at Kiware Europe in Villeurbanne, with ENS and ECL as schools.
 
+## Problematic
+
+How is collaborative software development organized in the production of a
+Python framework: trame.
+
 ## Deliverables
 
 ### Premilinary report (15/4)

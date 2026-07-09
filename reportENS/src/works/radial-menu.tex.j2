@@ -13,12 +13,12 @@ The Krita palette provides a rich set of features through a radial menu
 displayed around the mouse cursor upon activation (\cref{fig:krita-palette}). It
 includes a side panel containing brush options and enables users to switch
 quickly between drawing tools. A similar interface could significantly benefit
-trame-slicer's medical viewer.
+trame-slicer's Medical Viewer.
 
 \insertfigure {assets/images/krita-palette} {height=0.3\textheight} {Krita
 palette \cite{Krita}} {fig:krita-palette}
 
-The medical viewer in trame-slicer already offers a comparable set of tools,
+The Medical Viewer in trame-slicer already offers a comparable set of tools,
 although they are currently located within a side panel, as shown in
 \cref{fig:medical-viewer-ui}.
 
@@ -122,7 +122,7 @@ in the trame news through \cref{pr:Kitware/trame/895} and
 \subsubsection{\refrepo{trame-slicer} Medical Viewer Example}
 
 Since one of the primary target applications for the radial menu was software
-such as trame-slicer's medical viewer, integration into this application was
+such as trame-slicer's Medical Viewer, integration into this application was
 considered an important use case.
 
 The Medical Viewer provides an excellent example of a complex application
@@ -143,12 +143,12 @@ inheritance but mean "is known by"}{fig:medical-viewer-classes}
 The architecture separates user interface responsibilities from application
 logic. UI classes manage interactions with the user through trame components and
 store interface state using typed states (\cref{sec:typedstates}). Logic classes
-respond to UI triggers and handle communication with Slicer.
+respond to UI triggers and handle communication with the 3D Slicer instance.
 
 For example, when a user selects a segmentation tool,
 \texttt{SegmentEditorUI.set\_active\_tool("Brush")} is invoked. This call
 triggers the corresponding procedure within \texttt{SegmentEditorLogic}, which
-instructs the Slicer instance to activate the requested tool.
+instructs the 3D Slicer instance to activate the requested tool.
 
 The UI is therefore organized as a hierarchical tree, similar to the structure
 of an HTML document. Each node corresponds to a UI component and maintains its
@@ -170,12 +170,12 @@ straightforward. However, the menu initially appeared on every right-click,
 which was undesirable because right-click interactions were already assigned to
 other operations, such as zooming or terminating markup placement.
 
-Resolving this issue required intercepting right-click events within Slicer
-itself rather than at the JavaScript level. This necessitated a deeper
-investigation of Slicer's architecture. The relevant event propagation paths are
-illustrated in two scenarios: when a user right-clicks on empty space within a
-scene (\cref{fig:slicer-architecture-void}) and when a user right-clicks on a
-specific node (\cref{fig:slicer-architecture-node}).
+Resolving this issue required intercepting right-click events within the 3D
+Slicer instance itself rather than at the JavaScript level. This necessitated a
+deeper investigation of 3D Slicer's architecture. The relevant event propagation
+paths are illustrated in two scenarios: when a user right-clicks on empty space
+within a scene (\cref{fig:slicer-architecture-void}) and when a user
+right-clicks on a specific node (\cref{fig:slicer-architecture-node}).
 
 \insertfigure{assets/images/slicer-architecture-1}{width=\textwidth}{Propagation
 of a right click in the void of a view in 3D Slicer through 3D Slicer's
@@ -193,9 +193,9 @@ of a right click on a node of a view in 3D Slicer through 3D Slicer's
 architecture}{fig:slicer-architecture-node}
 
 As a result, right-clicking in empty space now opens the radial tool menu. When
-right-clicking on a node, the logic stores the selected Slicer markup node and
-opens a context menu implemented as a specialized radial menu containing only a
-side panel. The available actions depend on the type of markup node. For
+right-clicking on a node, the logic stores the selected 3D Slicer markup node
+and opens a context menu implemented as a specialized radial menu containing
+only a side panel. The available actions depend on the type of markup node. For
 example, fiducial nodes (annotation points within the scene) provide options
 such as delete, select, and unselect.
 

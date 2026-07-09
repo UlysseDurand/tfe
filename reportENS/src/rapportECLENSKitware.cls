@@ -149,9 +149,11 @@
 \crefmultiformat{pr}{(#2PRS~#1#3)}{ and~(#2#1#3)}{, (#2#1#3)}{ and~(#2#1#3)}
 \Crefformat{pr}{(#2PR~#1#3)}
 \newcommand{\definepr}[2]{
-  \refstepcounter{pr}
-  \hypertarget{#2}{}
-  \label{pr:#2}
+  \begingroup
+    \refstepcounter{pr}
+    \hypertarget{#2}{}
+    \label{pr:#2}
+  \endgroup
   PR.\thepr\ \href{#1}{#2}
 }
 
@@ -160,15 +162,19 @@
 \crefmultiformat{repo}{(#2repos~#1#3)}{ and~(#2#1#3)}{, (#2#1#3)}{ and~(#2#1#3)}
 \Crefformat{repo}{(#2Repo~#1#3)}
 \newcommand{\definerepo}[2]{
-  \refstepcounter{repo}
-  \hypertarget{#2}{}
-  \label{repo:#2}
+  \begingroup
+    \refstepcounter{repo}
+    \hypertarget{#2}{}
+    \label{repo:#2}
+  \endgroup
   repo.\therepo\ \href{#1}{#2}
 }
 \newcommand{\Definerepo}[2]{
-  \refstepcounter{repo}
-  \hypertarget{#2}{}
-  \label{repo:#2}
+  \begingroup
+    \refstepcounter{repo}
+    \hypertarget{#2}{}
+    \label{repo:#2}
+  \endgroup
   Repo.\therepo\ \href{#1}{#2}
 }
 

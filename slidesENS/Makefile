@@ -2,7 +2,7 @@ TEXFILE = main
 OUTDIR = build
 SRCFOLDER = src
 ASSETSFOLDER = ../assets
-CLSFILE = $(SRCFOLDER)/rapportECLENSKitware.cls
+CLSFILE = $(SRCFOLDER)/slidesECLENSKitware.cls
 SRCFILES = $(shell find $(SRCFOLDER) -type f)
 VENV_PYTHON = ../.venv
 

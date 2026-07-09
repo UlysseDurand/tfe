@@ -1,0 +1,89 @@
+\begin{frame}{Radial Menu Development}
+Tutor plus two product owners
+
+\begin{columns}
+    \begin{column}{0.5\textwidth}
+        \href{http://localhost:8080/index.html}{\includegraphics[height=0.65\textheight]{assets/images/medical-viewer-ui}}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+        \includegraphics[height=0.65\textheight]{assets/images/krita-palette}
+    \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Radial Menu State of the art}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+    \includegraphics[height=0.8\textheight]{assets/images/radial-menu-sota}
+\end{column}
+\pause
+\begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[height=0.8\textheight]{assets/images/radial-menu-gpt}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Radial Menu first POC}
+\begin{columns}
+    \begin{column}{0.7\textwidth}
+        \lstinputlisting[language=vue, basicstyle=\tiny]{assets/code/first-poc-radial-menu.vue}
+    \end{column}    
+    \begin{column}{0.3\textwidth}
+        \centering
+        \vspace{-1cm}
+        \includegraphics[width=\textwidth]{assets/images/radial-menu-first-poc}
+    \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Radial Menu 1.0.0 minimal example}
+\begin{columns}
+    \begin{column}{0.7\textwidth}
+        \lstinputlisting[language=Python, basicstyle=\tiny]{assets/code/trame-radial-menu-minimal.py}
+    \end{column}    
+    \begin{column}{0.3\textwidth}
+        \centering
+        \vspace{-1cm}
+        \includegraphics[width=\textwidth]{assets/images/radial-menu-minimal-example}
+    \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Full example}
+Code cleaned, typed, pass linter, reviewed \rightarrow \href{https://pypi.org/project/trame-radial-menu/}{PyPI release 1.0.0}
+\centering
+\href{http://localhost:8081/index.html}{\includegraphics[width=0.8\textwidth]{assets/images/radial-menu-full-example}}
+\end{frame}
+\begin{frame}{Intercept right click events in slicer}
+Different cases: click in background or click on DisplayNode
+\only<1>{\includegraphics[height=0.7\textheight]{assets/images/slicer-architecture-1}}
+\only<2>{\includegraphics[width=\textwidth]{assets/images/slicer-architecture-2}}
+\end{frame}
+
+\begin{frame}{Integration in Medical Viewer}
+\centering
+New feature: Open menu with a Python function \rightarrow release 1.1.0
+\href{http://localhost:8082/index.html}{\includegraphics[height=0.7\textheight]{assets/images/trame-slicer-w-radial-menu}}
+\end{frame}
+
+\begin{frame}{trame-radial-menu's future}
+\begin{columns}
+\begin{column}{0.4\textwidth}
+    Communication:
+    \begin{itemize}
+        \item Short video of trame-slicer with radial menu
+    \end{itemize}
+\only<2>{
+Iterative development and maintenance:
+\begin{itemize}
+    \item Issues of features and bugs
+    \item Future code reviews, releases
+\end{itemize}
+}
+\end{column}
+\begin{column}{0.6\textwidth}
+    \href{https://kitware.github.io/trame/news.html\#june-11-2026}{\includegraphics[width=\textwidth]{assets/images/trame-news}}
+\end{column}
+\end{columns}
+\end{frame}
