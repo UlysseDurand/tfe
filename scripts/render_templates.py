@@ -1,10 +1,17 @@
 #!/usr/bin/env python3
 
+import re
 import sys
 from pathlib import Path
 
 import data_sources
 from jinja2 import Environment, FileSystemLoader
+
+_TEX_SPECIAL = re.compile(r"([#&%$_{}])")
+
+
+def tex_escape(value):
+    return _TEX_SPECIAL.sub(r"\\\1", value)
 
 
 def main():
@@ -14,6 +21,7 @@ def main():
     for name, func in data_sources.__dict__.items():
         env.globals[name] = func
     env.globals["len"] = len
+    env.filters["tex_escape"] = tex_escape
 
     src_path = Path(src_dir)
     build_path = Path(build_dir)

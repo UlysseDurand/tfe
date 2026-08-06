@@ -4,7 +4,7 @@ The following pull requests were done:
 
 \begin{itemize}
 {% for pr in get_prs() %}
-\item \definepr{{ "{" + pr["url"] + "}" }}{{ "{" + pr["fullName"]}}/{{ pr["prNb"] + "}" }}: {{pr["description"]}}
+\item \definepr{{ "{" + pr["url"] + "}" }}{{ "{" + pr["fullName"]}}{% if pr["prNb"] %}/{{ pr["prNb"] }}{% endif %}{{ "}" }}: {{pr["description"] | tex_escape}}
 {% endfor %}
 \end{itemize}
 

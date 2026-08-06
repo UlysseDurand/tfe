@@ -12,17 +12,32 @@ EVENT_TYPES = [
     "Radial Menu",
     "Mobile trame-slicer",
 ]
-MAINTENANCE_REPOS = [
-    "Kitware/trame",
-    "Kitware/trame-tutorial",
-    "Kitware/trame-vtk",
-    "Kitware/trame-cookiecutter",
-    "UlysseDurand/github-retriever",
-]
-RADIAL_MENU_REPOS = [
-    "Kitware/trame-radial-menu",
-    "conda-forge/staged-recipes",
-]
+MAINTENANCE_REPOS = {
+    "Kitware/trame": "UlysseDurand",
+    "UlysseDurand/trame": "UlysseDurand",
+    "Kitware/trame-tutorial": "UlysseDurand",
+    "UlysseDurand/trame-tutorial": "UlysseDurand",
+    "Kitware/trame-vtk": "UlysseDurand",
+    "UlysseDurand/trame-vtk": "UlysseDurand",
+    "Kitware/trame-cookiecutter": "UlysseDurand",
+    "UlysseDurand/trame-cookiecutter": "UlysseDurand",
+    "UlysseDurand/github-retriever": "UlysseDurand",
+    "Kitware/trame-rca": "UlysseDurand",
+    "UlysseDurand/trame-rca": "UlysseDurand",
+    "conda-forge/staged-recipes": "UlysseDurand",
+    "UlysseDurand/staged-recipes": "UlysseDurand",
+    "conda-forge/trame-radial-menu-feedstock": "UlysseDurand",
+}
+RADIAL_MENU_REPOS = {
+    "Kitware/trame-radial-menu": "UlysseDurand",
+}
+MOBILE_TRAME_SLICER_REPOS = {
+    "gitlab.kitware.com/vtk/vtk": "ulysse.durand",
+    "Slicer/Slicer": "UlysseDurand",
+    "UlysseDurand/Slicer": "UlysseDurand",
+    "KitwareMedical/SlicerCore": "UlysseDurand",
+    "UlysseDurand/SlicerCore": "UlysseDurand",
+}
 EVENT_COLORS = ["#5b8dee", "#f4a261", "#57cc99", "#e056fd", "#ff6b6b"]
 
 
@@ -48,8 +63,8 @@ def to_date(value):
 
 def get_commit_days(repos):
     commits = []
-    for repo in repos:
-        commits.extend(get_user_commits(repo, "UlysseDurand"))
+    for repo, username in repos.items():
+        commits.extend(get_user_commits(repo, username))
     return [to_date(e["date"]) for e in commits]
 
 
@@ -60,6 +75,7 @@ def main():
     }
     events["Maintenance"] = get_commit_days(MAINTENANCE_REPOS)
     events["Radial Menu"] += get_commit_days(RADIAL_MENU_REPOS)
+    events["Mobile trame-slicer"] += get_commit_days(MOBILE_TRAME_SLICER_REPOS)
 
     # --- categorical x-axis: only Office days exist ---
     office_days = sorted(set(events.pop("Office")))
