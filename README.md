@@ -28,6 +28,7 @@ Python framework: trame.
 - `config/`: shared metadata (`metadata.yml`, `contributions.yml`) and
   `references.bib`.
 - `reportENS/`: ENS report content (`src/*.tex.j2`) and its LaTeX class.
+- `reportECL/`: ECL report content (`src/*.tex.j2`) and its LaTeX class.
 - `slidesENS/`: ENS defense slides content (`src/*.tex.j2`) and its LaTeX class.
 - `Makefile.common`: shared make rules, included by each deliverable's Makefile.
 
@@ -38,6 +39,7 @@ Each deliverable builds itself with its own thin `Makefile`:
 ```sh
 make -C reportENS all   # full build: clean + assets + pdf
 make -C reportENS fast  # incremental, no asset regeneration
+make -C reportECL all
 make -C slidesENS all
 ```
 

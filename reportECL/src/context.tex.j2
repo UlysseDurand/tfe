@@ -1,0 +1,152 @@
+\subsection{Kitware}
+
+The internship was carried out within the Software Solutions team at Kitware
+Europe, located in Villeurbanne. Kitware specializes in the research and
+development of open-source software and also provides custom software
+development, training, consulting, and technical support services related to its
+technologies. The company's areas of expertise include scientific and medical
+visualization, computer vision, data analysis, and software process engineering.
+Within this context, the Software Solutions team focuses primarily on scientific
+and medical visualization, with a significant portion of its activities centered
+around the trame framework, presented in \cref{sec:trame}.
+
+\subsection{Scientific and Medical Visualization Tools}
+
+This section introduces several frameworks commonly used in scientific and
+medical visualization. An overview of their dependencies is provided in
+\cref{fig:frameworks}.
+
+\insertfigure {assets/images/frameworks.png} {width=\textwidth} {Frameworks
+and module dependencies, purple: no code, green: C++, blue: JavaScript, red:
+Python} {fig:frameworks}
+
+Scientific and medical visualization applications address a broad range of
+practical use cases. VTK (Visualization Toolkit) \cite{VTK}, developed by
+Kitware, provides a robust foundation for building such applications.
+
+For scientific visualization, \citev{ParaView}, also developed by Kitware, is an
+open-source application built on top of VTK. It is widely used by researchers
+and engineers to visualize and analyze large scientific datasets.  ParaView
+offers extensive tools for data processing and rendering while scaling
+efficiently to high-performance computing environments.
+
+In the medical domain, 3D Slicer \cite{Slicer} is an open-source platform
+dedicated to medical image visualization and analysis. It provides tools for
+image segmentation, 3D reconstruction, registration, and quantitative analysis,
+and is widely adopted in both research and clinical settings. Kitware also
+contributes actively to its maintenance and development.
+
+\subsection{Trame}
+
+\label{sec:trame}
+
+\subsubsection{Motivations}
+
+Mastering VTK and 3D Slicer can be challenging due to their steep learning
+curves, dependence on C++ expertise, and hardware requirements that may limit
+their accessibility. Web-based solutions naturally address some of these
+limitations by improving interoperability and accessibility. However, while most
+researchers and engineers are familiar with Python, they often possess limited
+experience in web development or C++. A study of researchers' software habits
+\cite{researchers_habits} reports that Python is used by 67\% of researchers
+(\cref{fig:researchers_habits_python}).
+
+\insertfigure {assets/images/researchers-python} {width=\textwidth} {(source:
+\cite{researchers_habits})} {fig:researchers_habits_python}
+
+The same study also highlights the widespread adoption of open-science
+practices, with open-source software being used more frequently than commercial
+alternatives, as illustrated in \cref{fig:researchers_habits_open_source}.
+
+\insertfigure {assets/images/researchers-open-source} {height=0.3\textheight}
+{from \cite{researchers_habits}} {fig:researchers_habits_open_source}
+
+Trame \cite{trame} is an open-source Python framework that enables the rapid
+development of custom applications without requiring expertise in compilation,
+C++, or web technologies. Consequently, it aligns closely with the needs of
+researchers and engineers. While VTK.js (a JavaScript implementation of VTK)
+allows VTK-based applications to run in a web environment, it still requires
+knowledge of JavaScript. Similarly, although ParaView can be used without C++
+programming skills, it does not generate web applications that can be deployed
+and accessed from arbitrary devices.
+
+Trame's user interface is built from \citev{VueJS} components. Vue is a
+framework for developing interactive web interfaces through modular and reusable
+components and generally offers a lower barrier to entry than alternatives such
+as React or Angular. Adding a new UI element to Trame typically involves
+implementing a Vue component and wrapping it as a Trame widget, after which it
+can be seamlessly integrated into an application. Vuetify \cite{Vuetify}
+provides a comprehensive collection of Vue components covering common interface
+elements such as checkboxes, sliders, and tables. The
+\definerepo{https://github.com/Kitware/trame-vuetify}{trame-vuetify} package
+exposes these components within Trame, enabling the rapid creation of polished
+user interfaces. \Cref{fig:trame-easy-ui} illustrates how reactive applications
+can be developed with only a small amount of code.
+
+\insertfigure{assets/images/trame-easy-ui}{height=0.3\textheight}{Trame code
+snippet (source: \href{https://kitware.github.io/trame/guide/}{trame guide},
+upscaled with \citev{ChatGPT})}{fig:trame-easy-ui}
+
+Trame is organized around widgets, each providing either specialized Vue.js
+components or functionality based on interactions between JavaScript and Python.
+One of the framework's main strengths is its ecosystem of domain-specific
+widgets. For scientific visualization, \refrepo{trame-vtk} enables the
+integration of VTK into Trame applications, while
+\definerepo{https://github.com/KitwareMedical/trame-slicer}{trame-slicer}
+provides access to 3D Slicer functionality.
+
+Both \refrepo{trame-vtk} and \refrepo{trame-slicer} support remote rendering:
+the application executes and renders on the Python side, streaming the result as
+an HTML image while user interactions are transmitted back to the server.  This
+mechanism is implemented through
+\definerepo{https://github.com/Kitware/trame-rca}{trame-rca} (Remote Controlled
+Area), on which both widgets depend.
+
+\Cref{fig:trame-application} illustrates the type of advanced applications that
+can be developed using \refrepo{trame-vtk} and \refrepo{trame-vuetify}.
+
+\insertfigure{assets/images/trame-application}{height=0.3\textheight}{Example of
+a Trame application from the Trame tutorial}{fig:trame-application}
+
+Kitware sought to develop custom medical visualization applications. Although
+\citev{VolView} already existed, it operated entirely within the user's browser.
+To address this limitation, trame-slicer was developed as a Trame widget that
+leverages the capabilities of 3D Slicer \cite{Slicer} through its Python
+bindings. A complete web application showcasing the capabilities of
+trame-slicer, known as the Medical Viewer, was subsequently created. It provides
+functionality comparable to that of 3D Slicer, including navigation through
+different views of volumetric data (which may originate from \citev{DICOM}),
+segmentation tools, and annotation features. \Cref{fig:medical-viewer-ui} shows
+its interface.
+
+\subsection{Features}
+
+\subsubsection{Client/Server Shared State}
+
+Trame can be viewed as a Python abstraction layer built on top of \citev{VueJS}.
+In VueJS, variables can be accessed from both the \texttt{template}
+(client-side) and \texttt{script} (server-side) sections through references
+(\texttt{ref}). Similarly, Trame enables variables to be shared between the
+Python and web components of an application.
+
+These variables are synchronized between the server and client through a
+\texttt{state} object using WebSocket communication. User interface elements and
+their associated JavaScript code can invoke Python functions or modify shared
+state variables, which remain synchronized across both environments. This
+architecture is illustrated in \cref{fig:trame-slide}.
+
+\insertfigure{assets/images/trame-slide}{height=0.2\textheight}{Trame
+Model--View--ViewModel principle (source:
+\href{https://kitware.github.io/trame/guide/}{trame guide})}{fig:trame-slide}
+
+\subsubsection{Typed States}
+
+\label{sec:typedstates}
+
+Binding shared variables to a singleton state object (a class with a single
+instance) can become difficult to manage in large code bases. Typed states
+address this issue by providing typed references to variables stored within the
+state object. A typed state can be created anywhere in the code, automatically
+associating a local variable with a corresponding entry in the shared state.
+This mechanism is particularly useful when binding shared variables to user
+interface components, as discussed later in this report.

@@ -1,0 +1,70 @@
+\documentclass[]{rapportECLENSKitware}
+
+\ttitle{ {{metadata["title"]}} }
+\UE{ {{metadata["UE"]}} }
+\subject{ {{metadata["subject"]}} }
+\tutor{ {{metadata["tutor"]}} }
+\student { {{metadata["student"]}} }
+
+\bibliography{references}
+
+\begin{document}
+
+\makemargins
+\makefirstpage
+
+% \section{Summary}
+
+% \input{summary}
+
+\section{Introduction}
+
+\input{intro}
+
+% \section{Working environment}
+
+% \input{company}
+
+\section{Scientific and Medical visualization frameworks}
+
+\label{sec:context}
+\input{context}
+
+\section{Work accomplished}
+
+\input{work}
+
+\section{Conclusion}
+
+\input{conclusion}
+
+% \section{Acknowledgements}
+
+% \input{acknowledgements}
+
+\printbibliography
+
+\appendix
+
+% \section{Appendix: Internship and career}
+
+% \input{career}
+\newpage
+\section{Appendix: GitHub contributions}
+
+\label{appendix:contributions}
+\input{appendix-contributions}
+
+\newpage
+\section{Appendix: Trame resources report}
+
+\label{appendix:trame-resources-report}
+\includepdf[pages=-]{assets/appendices/appendix-trame-resources.pdf}
+
+\newpage
+\section{Appendix: State of the art pie-menu UI}
+
+\label{appendix:sota-pie-menu}
+\includepdf[pages=-]{assets/appendices/appendix-pie-menu-sota.pdf}
+
+\end{document}
