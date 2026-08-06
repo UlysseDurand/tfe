@@ -52,7 +52,7 @@ an inner \texttt{RadWheel}. However, the available \texttt{RadItem} types were
 limited to text labels and checkboxes. The product owners requested the ability
 to embed arbitrary HTML content instead.
 
-\insertfigure {assets/images/poc-api-1} {width=\textwidth} {Components of the
+\insertfigure {assets/images/poc-api} {width=\textwidth} {Components of the
 first POC's API of the radial menu} {fig:first-poc-classes}
 
 Feedback regarding the visual design also indicated that the double-wheel layout
@@ -84,7 +84,7 @@ The current API is illustrated through the minimal example shown in
 implementation allows any HTML element to be placed within a \texttt{RadMenu}
 component.
 
-\insertfigure {assets/images/final-api-1} {width=\textwidth} {Components of the
+\insertfigure {assets/images/final-api} {width=\textwidth} {Components of the
 final API of the radial menu} {fig:final-api-components}
 
 \insertfigure {assets/images/radial-menu-minimal-example}
@@ -136,7 +136,7 @@ arrow between \texttt{SegmentEditorUI} and \texttt{MedicalViewerUI} indicates
 that \texttt{MedicalViewerUI} instantiates and maintains a reference to
 \texttt{SegmentEditorUI}.
 
-\insertfigure{assets/images/medical-viewer-1}{width=\textwidth}{Simplified
+\insertfigure{assets/images/medical-viewer}{width=\textwidth}{Simplified
 Medical Viewer's class diagram. These classes are singletons and arrows aren't
 inheritance but mean "is known by"}{fig:medical-viewer-classes}
 
@@ -177,7 +177,7 @@ paths are illustrated in two scenarios: when a user right-clicks on empty space
 within a scene (\cref{fig:slicer-architecture-void}) and when a user
 right-clicks on a specific node (\cref{fig:slicer-architecture-node}).
 
-\insertfigure{assets/images/slicer-architecture-1}{width=\textwidth}{Propagation
+\insertfigure{assets/images/slicer-architecture-void}{width=\textwidth}{Propagation
 of a right click in the void of a view in 3D Slicer through 3D Slicer's
 architecture}{fig:slicer-architecture-void}
 
@@ -188,7 +188,7 @@ event handling transitions into the Qt interaction layer. In the second
 scenario, events must instead be intercepted at the \texttt{vtkMRMLDisplayNode}
 level.
 
-\insertfigure{assets/images/slicer-architecture-2}{width=\textwidth}{Propagation
+\insertfigure{assets/images/slicer-architecture-displaynode}{width=\textwidth}{Propagation
 of a right click on a node of a view in 3D Slicer through 3D Slicer's
 architecture}{fig:slicer-architecture-node}
 

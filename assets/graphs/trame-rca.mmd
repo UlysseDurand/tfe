@@ -1,0 +1,8 @@
+flowchart LR
+    A[RemoteControlledArea js] -- wslink's Rpc trame.rca.event --> B[StreamManager]
+    B -- on_interaction() on area_adapters --> D[RcaViewAdapter]
+    C[RemoteControlledArea py] -. populate area_adapters .-> B
+    E[RemoteControlledArea py] -. create_view_handler() .-> C
+    D -- on_interaction() --> F[RcaImageRenderScheduler]
+    F -- .rca --> G[vtkRemoteControlledArea]
+    G -- process_interaction_event() --> H[vtkRemoteInteractionAdapter.ProcessEvent]

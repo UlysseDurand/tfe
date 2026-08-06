@@ -1,0 +1,13 @@
+sequenceDiagram
+    participant A as User
+    participant B as JS
+    box rgb(66, 184, 131, 0.5) RadMenu
+        participant RadMenuLogic as Logic (JS)
+        participant RadMenuUI as UI (DOM)
+    end
+
+    A->>B: Right-click
+    B->>RadMenuLogic: Click event listener
+    RadMenuLogic->>RadMenuLogic: Change state
+    RadMenuLogic->>RadMenuUI: 
+    RadMenuUI->>A:

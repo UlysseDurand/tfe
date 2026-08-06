@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant A as User
+    participant B as JS
+    box rgb(66, 184, 131, 0.5) RemoteControlledArea
+        participant RCALogic as Logic (JS)
+        participant RCAUI as UI (DOM)
+    end
+    participant Slicer as Slicer instance
+    participant Render as vtkRenderWindow
+
+    A->>B: Right-click
+    B->>RCALogic: Click event listener
+    RCALogic->>Slicer: RightButtonEvent
+    Slicer->>Slicer: Change state
+    Slicer->>Render: Renders
+    Render->>RCAUI: streams
+    RCAUI->>A:

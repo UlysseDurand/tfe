@@ -1,0 +1,13 @@
+flowchart
+    direction LR
+    C -- streams --> A
+    A -. sends events .-> B
+    subgraph JS side
+        A[RemoteControlledArea]
+    end
+
+    subgraph Python side
+        B[Slicer instance]
+        C[vtkRenderWindow]
+        B -- renders --> C
+    end

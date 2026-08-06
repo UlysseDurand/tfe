@@ -1,0 +1,25 @@
+sequenceDiagram
+    participant A as User
+    participant B as JS
+    box rgb(66, 184, 131, 0.5) RemoteControlledArea
+        participant RCALogic as Logic (JS)
+        participant RCAUI as UI (DOM)
+    end
+    
+    participant Slicer as Slicer instance
+    box rgb(250, 250, 100, 0.5) 
+    participant MedView as Medical Viewer
+    end
+
+    box rgb(66, 184, 131, 0.5) RadMenu
+        participant RadMenuLogic as Logic (JS)
+        participant RadMenuUI as UI (DOM)
+    end
+
+    A->>B: Right-click
+    B->>RCALogic: Click event listener
+    RCALogic->>Slicer: RightButtonEvent
+    Slicer->>MedView: Intercept
+    MedView->>RadMenuLogic: open()
+    RadMenuLogic->>RadMenuUI:
+    RadMenuUI->>A:

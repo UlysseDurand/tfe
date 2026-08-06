@@ -1,4 +1,3 @@
-```mermaid
 sequenceDiagram
     participant User
     participant Widget as vtkMRMLCameraWidget /<br/>vtkMRMLSliceIntersectionWidget
@@ -25,25 +24,3 @@ sequenceDiagram
 
     SHLogic ->> Menu: exec(QCursor::pos())
     Menu -->> User: Display Context Menu
-```
-```mermaid
-sequenceDiagram
-    participant User
-    participant MWidget as vtkSlicerMarkupsWidget
-    participant MDisplay as vtkMRMLMarkupsDisplayNode
-    participant SHLogic as qSlicerSubjectHierarchyPluginLogic
-    participant SHNode as vtkMRMLSubjectHierarchyNode
-    participant MPlugin as qSlicerSubjectHierarchyMarkupsPlugin
-    participant Menu as QMenu
-    User ->> MWidget: Right-Click on Control Point#3
-    MWidget ->> MWidget: ProcessWidgetMenu()
-    Note over MWidget: Identify Control Point Index: 3
-    Note over MWidget: Create vtkMRMLInteractionEventData<br/>Set Type to MenuEvent<br/>Set ComponentIndex to 3
-    MWidget ->> MDisplay: InvokeEvent(MenuEvent, eventData)
-    MDisplay -->> SHLogic: Observed Event (onDisplayMenuEvent)
-    SHLogic ->> SHLogic: onDisplayMenuEvent(displayNode, eventData)
-    SHLogic ->> SHNode: GetItemByDataNode(markupsNode)
-    SHNode -->> SHLogic: Returns markupsItemID
-    SHLogic ->> Menu: exec(QCursor::pos())
-    Menu -->> User: Display Context Menu
-```
