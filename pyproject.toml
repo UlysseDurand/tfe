@@ -1,0 +1,7 @@
+[tool.ruff]
+include = ["scripts/**"]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]

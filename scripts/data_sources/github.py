@@ -49,7 +49,8 @@ def get_user_commits(repo: str, username: str):
     result = subprocess.run(request, capture_output=True, text=True, check=False)
     if result.returncode != 0:
         raise RuntimeError(
-            f"Error executing command {' '.join(request)[:100]}:\n{result.stderr}\n{result.stdout}"
+            "Error executing command "
+            f"{' '.join(request)[:100]}:\n{result.stderr}\n{result.stdout}"
         )
 
     data = json.loads(result.stdout)
@@ -78,7 +79,7 @@ def get_user_commits(repo: str, username: str):
                         "date": commit["committedDate"],
                         "message": commit["messageHeadline"],
                         "url": commit["url"],
-                        "branch": branch["name"],  # Optional: include which branch it's on
+                        "branch": branch["name"],  # include branch it's on
                     }
                 )
 

@@ -47,3 +47,14 @@ make -C slidesENS all
 are rendered to `assets/images/` and the timeline is regenerated into
 `assets/images/timeline.png`.
 
+## Linting
+
+`scripts/` is linted with [ruff](https://docs.astral.sh/ruff/), configured in
+`pyproject.toml`. A pre-commit hook runs it on every commit:
+
+```sh
+pre-commit install # once, to enable the hook
+pre-commit run --all-files # run on all files
+ruff check scripts # run directly
+```
+

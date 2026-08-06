@@ -3,9 +3,8 @@
 import sys
 from pathlib import Path
 
-from jinja2 import Environment, FileSystemLoader
-
 import data_sources
+from jinja2 import Environment, FileSystemLoader
 
 
 def main():

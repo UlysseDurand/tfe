@@ -2,3 +2,5 @@ yaml
 dotenv
 icalendar-events-cli
 jinja2
+ruff
+pre-commit

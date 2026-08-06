@@ -83,7 +83,7 @@ def main():
     ax.set_yticks(range(len(events.keys())))
     ax.set_yticklabels(events.keys())
 
-    for row, (name, color) in enumerate(zip(events.keys(), EVENT_COLORS)):
+    for row, (name, color) in enumerate(zip(events.keys(), EVENT_COLORS, strict=True)):
         for idx in events[name]:
             ax.barh(row, 1, left=idx, color=color)
 
