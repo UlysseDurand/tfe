@@ -1,30 +1,32 @@
 from datetime import datetime
 from itertools import chain
-from dotenv import load_dotenv
+
 import matplotlib.pyplot as plt
-from build_env.events import get_events
-from build_env.util import get_user_commits
+from data_sources.calendar import get_calendar_events
+from data_sources.github import get_user_commits
 
-load_dotenv()
-
-event_types = [
+EVENT_TYPES = [
     "Office",
     "Point",
     "Tech",
     "Radial Menu",
     "Mobile trame-slicer",
 ]
-maintenance_repos = [
+MAINTENANCE_REPOS = [
     "Kitware/trame",
     "Kitware/trame-tutorial",
     "Kitware/trame-vtk",
     "Kitware/trame-cookiecutter",
     "UlysseDurand/github-retriever",
 ]
-COLORS = ["#5b8dee", "#f4a261", "#57cc99", "#e056fd", "#ff6b6b"]
+RADIAL_MENU_REPOS = [
+    "Kitware/trame-radial-menu",
+    "conda-forge/staged-recipes",
+]
+EVENT_COLORS = ["#5b8dee", "#f4a261", "#57cc99", "#e056fd", "#ff6b6b"]
 
 
-def to_day(value):
+def to_date(value):
     if not isinstance(value, str):
         if getattr(value, "tzinfo", None):
             value = value.replace(tzinfo=None)
@@ -44,21 +46,20 @@ def to_day(value):
     raise ValueError(f"Unsupported date format: {value}")
 
 
-def main():
-    maintenance_commits = []
-    for repo in maintenance_repos:
-        maintenance_commits.extend(get_user_commits(repo, "UlysseDurand"))
-    maintenance_events = [to_day(e["date"]) for e in maintenance_commits]
+def get_commit_days(repos):
+    commits = []
+    for repo in repos:
+        commits.extend(get_user_commits(repo, "UlysseDurand"))
+    return [to_date(e["date"]) for e in commits]
 
+
+def main():
     events = {
-        name: sorted(to_day(e["start-date"]) for e in get_events(name))
-        for name in event_types
+        name: sorted(to_date(e["start-date"]) for e in get_calendar_events(name))
+        for name in EVENT_TYPES
     }
-    events["Maintenance"] = maintenance_events
-    events["Radial Menu"] += [
-        to_day(e["date"])
-        for e in get_user_commits("Kitware/trame-radial-menu", "UlysseDurand")
-    ]
+    events["Maintenance"] = get_commit_days(MAINTENANCE_REPOS)
+    events["Radial Menu"] += get_commit_days(RADIAL_MENU_REPOS)
 
     # --- categorical x-axis: only Office days exist ---
     office_days = sorted(set(events.pop("Office")))
@@ -78,11 +79,11 @@ def main():
     n = len(office_days)
     pad = max(n * 0.02, 0.5)
 
-    fig, ax = plt.subplots(figsize=(14, len(events.keys())))
+    _, ax = plt.subplots(figsize=(14, len(events.keys())))
     ax.set_yticks(range(len(events.keys())))
     ax.set_yticklabels(events.keys())
 
-    for row, (name, color) in enumerate(zip(events.keys(), COLORS)):
+    for row, (name, color) in enumerate(zip(events.keys(), EVENT_COLORS)):
         for idx in events[name]:
             ax.barh(row, 1, left=idx, color=color)
 
@@ -104,7 +105,7 @@ def main():
     ax.grid(axis="x", which="major", alpha=0.3)
 
     plt.tight_layout()
-    plt.savefig("assets/images/timeline.png", dpi=150, bbox_inches="tight")
+    plt.savefig("../assets/images/timeline.png", dpi=150, bbox_inches="tight")
 
 
 if __name__ == "__main__":

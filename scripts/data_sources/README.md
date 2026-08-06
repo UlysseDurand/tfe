@@ -1,7 +1,7 @@
 # Manual steps before build (`manual_build`)
 
 - Give `prompt` to a LLM with Stage/Livrables/(PR+Issues) copied as Markdown,
-and paste the response to assets/infos/accomplished.yml
+and paste the response to config/contributions.yml
 
 ```
 can you make a yml out of this
@@ -24,7 +24,7 @@ issues:
 
 - Give the calendar URL
 
-In a `.env` file, write
+In the root `.env` file, write
 ```
 CALENDAR_URL=[insert calendar URL .ics]
 ```

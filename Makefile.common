@@ -1,0 +1,43 @@
+COMMON_DIR := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
+
+TEXFILE = main
+BUILD_DIR = build
+SRC_DIR = src
+ASSETS_DIR = ../assets
+VENV_PYTHON = ../.venv
+export PATH := $(VENV_PYTHON)/bin:$(PATH)
+SRCFILES = $(shell find $(SRC_DIR) -type f)
+
+# FAST= -usepretex -bibtex-
+FAST=
+
+.PHONY: clean build_assets all fast generate-graphs build_timeline
+
+fast: $(BUILD_DIR)/$(TEXFILE).pdf
+
+all: clean build_assets $(BUILD_DIR)/$(TEXFILE).pdf
+
+$(BUILD_DIR)/$(TEXFILE).pdf: $(BUILD_DIR)/$(TEXFILE).tex
+	latexmk -f -lualatex -silent $(FAST) -outdir=$(BUILD_DIR) $(BUILD_DIR)/$(TEXFILE).tex
+
+generate-graphs: $(patsubst $(ASSETS_DIR)/graphs/%.mmd, $(ASSETS_DIR)/images/%.png, $(wildcard $(ASSETS_DIR)/graphs/*.mmd))
+
+$(ASSETS_DIR)/images/%.png: $(ASSETS_DIR)/graphs/%.mmd
+	@mkdir -p $(ASSETS_DIR)/images
+	mmdc -i $< -o $@ --scale 3
+
+build_timeline:
+	$(VENV_PYTHON)/bin/python $(COMMON_DIR)/scripts/build_timeline.py
+
+build_assets: generate-graphs build_timeline
+
+$(BUILD_DIR)/$(TEXFILE).tex: $(SRCFILES)
+	@mkdir -p $(BUILD_DIR)
+	cp $(CLSFILE) $(BUILD_DIR)
+	cp -r $(ASSETS_DIR) $(BUILD_DIR)
+	cp $(COMMON_DIR)/config/references.bib $(BUILD_DIR)
+	$(VENV_PYTHON)/bin/python $(COMMON_DIR)/scripts/render_templates.py $(SRC_DIR) $(BUILD_DIR)
+
+clean:
+	-latexmk -C -outdir=$(BUILD_DIR) $(BUILD_DIR)/$(TEXFILE).tex
+	@rm -rf $(BUILD_DIR)/*
