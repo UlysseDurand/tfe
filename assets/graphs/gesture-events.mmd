@@ -2,11 +2,13 @@ flowchart LR
     A[VTK.js] --> B[trame-rca]
     B --> C[vtkRemoteInteractionAdapter]
 
-    D[Qt] ---> E[QVTKInteractorAdapter]
-    
-    F[vtkRenderWindowInteractor]
-    C -- vtkCommand --> F
-    E -- vtkCommand --> F
+    Da[vtkRenderWindowInteractor] -> Db[vtkInteractorStyle]
 
-    F <-. Observer .-> G["MyInteractor (custom)"]
-    F <-. Observer.-> H[vtkMRMLWidgets]
+    E[Qt] ---> F[QVTKInteractorAdapter]
+    
+    G[vtkRenderWindowInteractor]
+    C -- vtkCommand --> G
+    F -- vtkCommand --> G
+
+    G <-. Observer .-> H["MyInteractor (custom)"]
+    G <-. Observer.-> I[vtkMRMLWidgets]
