@@ -1,4 +1,4 @@
-\LoadClass[a4paper,12pt]{article}
+\LoadClass[a4paper,12pt]{extarticle}
 
 \RequirePackage[english]{babel}
 \RequirePackage[utf8]{inputenc}
@@ -17,7 +17,7 @@
 \RequirePackage{fancyhdr}
 \RequirePackage{url}
 \RequirePackage[hidelinks]{hyperref}
-\RequirePackage[includehead, left=2.5cm,right=3.5cm,top=2cm,bottom=3.5cm]{geometry}
+\RequirePackage[includehead, left=4.5cm,right=4.5cm,top=3cm,bottom=5cm]{geometry}
 \RequirePackage{cleveref}
 \RequirePackage{tikz}
 \RequirePackage{listings}
@@ -106,13 +106,10 @@
     \includegraphics[height=0.07\textheight]{assets/logos/logoECL.png}\par\vspace{1cm}
     \includegraphics[height=0.12\textheight]{assets/logos/logoKitware.png}\par
 
-    \vspace{1.5cm}
     {\scshape\Large \UE \\ \subject \par}
-    \vspace{1cm}
     \rule{\linewidth}{0.2 mm} \\[0.4 cm]
     {\huge\bfseries \ttitle \par} \
     \rule{\linewidth}{0.2 mm} \\[1.5 cm]
-    \vspace{1cm}
 
     \begin{minipage}{0.5\textwidth}
       \begin{flushleft} \large
@@ -138,9 +135,11 @@
 \newcommand{\insertfigure}[4]{
   \begin{figure}
     \centering
+    \vspace{0.5cm}
     \includegraphics[keepaspectratio,#2]{#1}
     \caption{#3}
     \label{#4}
+    \vspace{0.5cm}
   \end{figure}
 }
 

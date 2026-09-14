@@ -1,0 +1,32 @@
+The trame documentation provides a catalog of the widgets and applications of
+the trame ecosystem. At the beginning of the internship, this catalog consisted
+of a single manually maintained page, which did not scale with the growing
+ecosystem and did not help users discover applications. It was reworked into two
+automatically generated pages, the widget catalog and the application catalog
+(\cref{pr:Kitware/trame/899}), from which the screenshot in \cref{fig:trame-widgets}
+is taken.
+
+\insertfigure{assets/images/trame-widgets}{width=\textwidth}{Screenshot of the
+trame widgets catalog}{fig:trame-widgets}
+
+The catalogs no longer need to be edited by hand: their content is fetched from
+the GitHub API for Kitware-owned repositories carrying the \texttt{trame}
+topic, complemented by a curated list of community repositories that overrides
+or completes the fetched metadata. The pages provide a search bar, filtering by
+multiple tags, and sorting by various metrics, such as the number of stars or
+the date of the last commit. The documentation build is scheduled to run daily,
+so newly created widgets and applications appear automatically.
+
+Following this initial development, the catalogs were improved and kept stable
+through a series of maintenance pull requests. The URL management of renamed
+external repositories was hardened and unmatched URLs now report an explicit
+error (\cref{pr:Kitware/trame/901}). The interface was refined, changing the
+emoji marking community repositories and making a click on a topic toggle its
+filter (\cref{pr:Kitware/trame/902}). The merging of the curated data with the
+fetched data, which caused some applications to disappear from the application
+catalog, was corrected and logging was added (\cref{pr:Kitware/trame/903}). The
+preview images, which were fetched from URLs only valid for a short time, are
+now downloaded and served by the documentation site itself, also improving
+their loading time (\cref{pr:Kitware/trame/905}). Finally, repositories that no
+longer existed made the builds fail; they are now skipped with a warning,
+keeping the build green (\cref{pr:Kitware/trame/908}).

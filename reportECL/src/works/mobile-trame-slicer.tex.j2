@@ -20,10 +20,97 @@ along with the initial features required for the proof of concept:
 
 \end{itemize}
 
-During development, a speech-to-text feature could also be implemented, leading
-to the creation of an "Audio Recorder" trame widget. In addition, further
-\refrepo{trame-rca} mobile controls could be added, such as pinch gestures and
-two-finger navigation.
+The application is developed in the \refrepo{Mobile-DICOM-viewer} repository, a
+mobile web application for DICOM visualization based on
+\refrepo{trame-slicer}.
+
+Mobile interactions differ fundamentally from desktop ones: there is no
+right-click, no keyboard, and the screen is small. During the development of the
+application it became clear that the frameworks it relies on,
+\refrepo{trame-rca}, \citev{vtk-js} and VTK \cite{VTK}, did not fully support
+the gestures a phone requires. This work therefore led to a number of
+contributions to these frameworks, described below.
+
+\subsubsection{Gesture support in \refrepo{trame-rca}}
+
+Interactions are forwarded between the vtk-js client and the server-side VTK
+rendering by \refrepo{trame-rca}. On a phone, interactions are gestures, and the
+event representations of vtk-js and of the VTK side did not match: two-finger
+gestures such as pinch, rotate or pan were therefore not handled. Gesture
+support was implemented in trame-rca by translating between both
+representations in JavaScript as early as possible
+(\cref{pr:Kitware/trame-rca/42} and \cref{pr:Kitware/trame-rca/44}).
+
+Once the gestures worked, testing with a tablet revealed that they generated so
+many events that they stacked up and took several seconds to reach the server.
+The event throttling was mouse-specific and could not compress consecutive
+gesture events; it was extended so that two consecutive gesture events of the
+same type are now compressed together (\cref{pr:Kitware/trame-rca/48} and
+\cref{pr:Kitware/trame-rca/49}).
+
+Mobile browsers also introduced specific issues. On iOS, the long press on an
+image or canvas makes Safari select the element to share or download it, which
+prevented LongTap detection; this was fixed with CSS properties so that the
+Remote Controlled Area catches all interactions
+(\cref{pr:Kitware/trame-rca/50}). Finally, as vtk-js began to emit Tap and
+LongTap events, trame-rca was extended to forward them
+\cref{pr:Kitware/trame-rca/52}, closing the client side of the gesture chain
+(\cref{fig:gesture-events}).
+
+\insertfigure{assets/images/gesture-events}{width=\textwidth}{Flow of
+interaction events between vtk-js, \refrepo{trame-rca} and VTK}{fig:gesture-events}
+
+\subsubsection{Tap and LongTap in \citev{vtk-js}}
+
+On a phone, where nothing can be right-clicked, the LongTap is the natural
+replacement for opening contextual menus, and the Tap complements it. These two
+gestures did not exist in vtk-js, so they were added to its
+\texttt{RenderWindowInteractor}: a touch or pen pointer that stays within a
+configurable \texttt{longTapDistance} for at least a configurable
+\texttt{longTapDuration} emits a LongTap event, otherwise a Tap event is
+emitted. A deep dive in the gesture detection was performed, the following BPMN
+graph summarizes the gesture detection algorithm including Tap and LongTap
+(fig:gesture-detection) \cref{pr:Kitware/vtk-js/3596}.
+
+\insertfigure{assets/images/tapgesture}{width=\textwidth}{BPMN graph of the
+gesture detection}{fig:gesture-detection}
+
+\subsubsection{VTK}
+
+Testing these gestures also exposed several bugs on the C++ side of VTK. The
+\texttt{EndRotate} event was mapped to the wrong command, the pinch event
+position was computed in normalized coordinates while local coordinates are
+expected, which placed the zoom fix-point at the wrong location, and the pinch
+scale was not correctly forwarded. These problems were fixed for the 9.7.0
+release of VTK (\cref{fig:git-tree-vtk-gestures},
+\cref{pr:vtk/vtk/13428}).
+
+The pan gesture translation was also made cumulative, consistently with rotate
+and pinch, which both give values relative to the beginning of the gesture, thus
+reducing precision errors (\cref{pr:vtk/vtk/13570}).
+
+Finally, Tap and LongTap events needed to be handled in VTK as well, to complete
+the chain started by \cref{pr:Kitware/vtk-js/3596} and
+\cref{pr:Kitware/trame-rca/52} (\cref{pr:vtk/vtk/13618}). Until this change is
+available in a VTK version Slicer is built with, the mobile application depends
+on a patched VTK module and a custom \refrepo{trame-rca} branch.
+
+\insertfigure{assets/images/git-tree-vtk-gestures}{width=\textwidth}{Git
+tree of the VTK branch fixing the gesture events handling, from 9.6.2 to
+9.7.0}{fig:git-tree-vtk-gestures}
+
+Compiling and testing those versions of VTK were a real challenge, the build
+process was very long. Trying out new gestures used in Slicer required to
+compile VTK and Slicer after updating Slicer's code to use VTK's new API.
+
+\subsubsection{Bugs fixed in Slicer}
+
+The application runs with a single full-screen view, which exposed a
+segmentation fault in Slicer's slice intersection computation when the layout
+contains a single view. This overflow is fixed by returning early in that case
+(\cref{pr:Slicer/Slicer/9334}). A build fix for
+\definerepo{https://github.com/KitwareMedical/SlicerCore}{SlicerCore} was also
+contributed (\cref{pr:KitwareMedical/SlicerCore/12}).
 
 \Cref{fig:mobile-ui} shows the current state of development of the mobile web
 application. The main concern is to not overcharge the screen, on the right
